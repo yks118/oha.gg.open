@@ -38,6 +38,7 @@ class View extends BaseController
                 break;
         }
 
+        $mAuctionHistory->orderBy('date_auction_buy', 'DESC');
         $data['data']['history']['list']        = $mAuctionHistory->whereIn('item_uuid', $uuids)->paginate(12);
         $data['data']['history']['pagination']  = $mAuctionHistory->pager->links(template: 'thema');
         $data['data']['history']['total']       = $mAuctionHistory->pager->getTotal();

@@ -129,11 +129,15 @@
                                 <?php
                                 if ($eNpcShopListShopItemOption->isColorPart())
                                 {
-                                    echo '<a href="' . $eNpcShopListShopItemOption->search() . '" style="color: rgb(' . $eNpcShopListShopItemOption->option_value . ');">' . $eNpcShopListShopItemOption->option_value . '</a>';
-
+                                    ?>
+                                <span class="avatar avatar-xs me-2 rounded" style="background-color: rgb(<?php echo $eNpcShopListShopItemOption->option_value; ?>);"></span>
+                                <a href="<?php echo $eNpcShopListShopItemOption->search(); ?>"><?php echo $eNpcShopListShopItemOption->option_value; ?></a>
+                                    <?php
                                     if ($eNpcShopListShopItemOption->dyeColor)
                                     {
-                                        echo '&nbsp;<small style="color: rgb(' . $eNpcShopListShopItemOption->option_value . ');">' . $eNpcShopListShopItemOption->dyeColor->name . '</small>';
+                                        ?>
+                                <small><?php echo $eNpcShopListShopItemOption->dyeColor->name; ?></small>
+                                        <?php
                                     }
                                 }
                                 else

@@ -99,7 +99,7 @@ class DyeColor extends BaseController
         $data['data']['pagination'] = $mDyeColor->pager->links(template: 'thema');
         $data['data']['total']      = $mDyeColor->pager->getTotal();
 
-        // $this->cachePage(MINUTE);
+        $this->cachePage(MINUTE);
         return $this->render($data);
     }
 }

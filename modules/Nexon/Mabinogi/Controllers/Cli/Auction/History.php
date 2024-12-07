@@ -56,6 +56,13 @@ class History extends BaseController
         try
         {
             $mAuctionHistoryStatus
+                ->set('status', 'f')
+                ->where('status !=', 'f')
+                ->where('updated_at <=', date('Y-m-d H:i:s', strtotime('-10 minutes')))
+                ->update()
+            ;
+
+            $mAuctionHistoryStatus
                 ->set('status', 'w')
                 ->whereIn('auction_item_category', array_column($list, 'auction_item_category'))
                 ->update()
@@ -88,7 +95,7 @@ class History extends BaseController
                 do
                 {
                     $response = $api->getAuctionHistory($auctionItemCategory, '', $nextCursor);
-                    if (empty($dateAuctionBuy) && isset($response['auction_history'][0]))
+                    if (isset($response['auction_history'][0]))
                     {
                         $dateAuctionBuy = date('Y-m-d H:i:s', strtotime($response['auction_history'][0]['date_auction_buy']));
                     }

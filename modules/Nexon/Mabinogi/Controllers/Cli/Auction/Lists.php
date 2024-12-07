@@ -59,7 +59,8 @@ class Lists extends BaseController
         {
             $mAuctionListStatus
                 ->set('status', 'f')
-                ->where('updated_at <=', date('Y-m-d H:i:s', strtotime('-1 hour')))
+                ->where('status !=', 'f')
+                ->where('updated_at <=', date('Y-m-d H:i:s', strtotime('-10 minutes')))
                 ->update()
             ;
 

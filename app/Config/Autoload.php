@@ -46,9 +46,10 @@ class Autoload extends AutoloadConfig
         'Modules\Core'  => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Core',
 
         // Nexon
-        'Modules\Nexon\Core'        => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Core',
-        'Modules\Nexon\Mabinogi'    => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Mabinogi',
-        'Modules\Nexon\Baram'       => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Baram',
+        'Modules\Nexon\Core'            => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Core',
+        'Modules\Nexon\Mabinogi'        => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Mabinogi',
+        'Modules\Nexon\MabinogiHeroes'  => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'MabinogiHeroes',
+        'Modules\Nexon\Baram'           => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Baram',
     ];
 
     /**

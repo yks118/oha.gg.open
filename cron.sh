@@ -26,3 +26,10 @@ php "$SCRIPT_PATH"/public/index.php nexon mabinogi cli auction list &
 (sleep 50 && php "$SCRIPT_PATH"/public/index.php nexon mabinogi cli auction list)&
 # 경매장 거래 내역 조회 - 1,440 x 5 = 7,200
 php "$SCRIPT_PATH"/public/index.php nexon mabinogi cli auction history &
+
+
+## Mabinogi Heroes
+# 명예의 전당 랭킹 정보 조회 - 1
+php "$SCRIPT_PATH"/public/index.php nexon mabinogi-heroes cli ranking hall-of-honor &
+# 실시간 랭킹 정보 조회 - 24 x 2 = 48
+php "$SCRIPT_PATH"/public/index.php nexon mabinogi-heroes cli ranking real-time &

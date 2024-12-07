@@ -44,7 +44,7 @@ class Main extends BaseController
                 }
                 else
                 {
-                    $cacheKey = 'baram_getid_' . base64_encode($data['data']['get']['server_name'] . $data['data']['get']['character_name']);
+                    $cacheKey = 'nexon_baram_getid_' . base64_encode($data['data']['get']['server_name'] . $data['data']['get']['character_name']);
                     $response = cache()->get($cacheKey);
                     if (empty($response))
                     {

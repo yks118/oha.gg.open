@@ -17,7 +17,7 @@
                 ]
             );
             ?>
-            <button type="submit" class="btn btn-outline-primary">업데이트</button>
+            <button type="submit" class="btn btn-outline-success">업데이트</button>
             <?php echo form_close(); ?>
         </div>
     </div>

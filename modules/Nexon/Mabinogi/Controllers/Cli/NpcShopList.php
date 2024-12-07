@@ -50,7 +50,7 @@ class NpcShopList extends BaseController
                 catch (Exception $e)
                 {
                     // 사라진 채널(혹은 서버나 NPC)
-                    $this->mNpcShopList->delete($eNpcShopList->id);
+                    // $this->mNpcShopList->delete($eNpcShopList->id);
                     break;
                 }
             }

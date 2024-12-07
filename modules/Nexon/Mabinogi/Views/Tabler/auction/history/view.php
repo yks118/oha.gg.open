@@ -42,11 +42,15 @@
                         <?php
                         if ($eItemOption->isColorPart())
                         {
-                            echo '<a href="' . $eItemOption->search() . '" style="color: rgb(' . $eItemOption->option_value . ');">' . $eItemOption->option_value . '</a>';
-
+                            ?>
+                        <span class="avatar avatar-xs me-2 rounded" style="background-color: rgb(<?php echo $eItemOption->option_value; ?>);"></span>
+                        <a href="<?php echo $eItemOption->search(); ?>"><?php echo $eItemOption->option_value; ?></a>
+                            <?php
                             if ($eItemOption->dyeColor)
                             {
-                                echo '&nbsp;<small style="color: rgb(' . $eItemOption->option_value . ');">' . $eItemOption->dyeColor->name . '</small>';
+                                ?>
+                        <small><?php echo $eItemOption->dyeColor->name; ?></small>
+                                <?php
                             }
                         }
                         else

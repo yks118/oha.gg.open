@@ -62,7 +62,7 @@
         {
             $basic = $data['response']['basic'];
             ?>
-    <div class="card mb-3">
+    <div class="card mb-3" id="basic">
         <div class="row row-0">
             <div class="col-auto">
                 <img
@@ -128,7 +128,7 @@
         if (isset($data['response']['stat']['stat']) && is_array($data['response']['stat']['stat']))
         {
             ?>
-    <div class="card mb-3">
+    <div class="card mb-3" id="stat">
         <div class="card-body">
             <div class="datagrid">
                 <?php
@@ -151,7 +151,7 @@
         if (isset($data['response']['itemEquipment']['item_equipment']) && is_array($data['response']['itemEquipment']['item_equipment']))
         {
             ?>
-    <div class="card mb-3">
+    <div class="card mb-3" id="itemEquipment">
         <div class="card-body">
             <div class="datagrid">
                 <?php
@@ -185,7 +185,7 @@
             </div>
         </div>
 
-        <div class="card-body">
+        <div class="card-body" id="itemEquipmentCash">
             <div class="datagrid">
                 <?php
                 foreach ($data['response']['itemEquipment']['item_equipment'] as $itemEquipment)
@@ -224,7 +224,7 @@
         if (isset($data['response']['title']['title']) && is_array($data['response']['title']['title']))
         {
             ?>
-    <div class="card mb-3">
+    <div class="card mb-3" id="title">
         <div class="card-header">
             <div>
                 <h3 class="card-title">보유중인 칭호 목록</h3>

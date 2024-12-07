@@ -28,6 +28,10 @@
 1. [Api.php](modules/Nexon/Mabinogi/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
+#### 마비노기 영웅전
+1. [Api.php](modules/Nexon/MabinogiHeroes/Config/Api.php)  
+   개발키(dev)와 실제 서버키(prod)를 수정합니다.
+
 ## DB 설치
 개발모드(SetEnv CI_ENVIRONMENT development)로 메인 페이지에 접근하시면, 모듈 업데이트 버튼이 생성됩니다.  
 해당 버튼으로 DB 설치 및 업데이트가 가능합니다.  
