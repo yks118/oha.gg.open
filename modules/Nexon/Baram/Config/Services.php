@@ -9,7 +9,7 @@ class Services extends BaseService
     {
         if ($getShared)
         {
-            $service = static::getSharedInstance('api');
+            $service = static::getSharedInstance('nexonBaramApi');
             if ($service instanceof \Modules\Nexon\Baram\Libraries\Api)
             {
                 return $service;

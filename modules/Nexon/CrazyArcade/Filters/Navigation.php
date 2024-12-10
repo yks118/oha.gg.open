@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Nexon\Baram\Filters;
+namespace Modules\Nexon\CrazyArcade\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
@@ -12,19 +12,23 @@ class Navigation implements FilterInterface
         \Modules\Core\Config\Services::navigation()->set([
             [
                 'name'  => '대시보드',
-                'href'  => site_to('nexon_baram_main'),
+                'href'  => site_to('nexon_crazy_arcade_main'),
+            ],
+            [
+                'name'  => '계정 정보 조회',
+                'href'  => site_to('nexon_crazy_arcade_user'),
             ],
             [
                 'name'  => '공식 홈페이지',
                 'href'  => '',
                 'child' => [
                     [
-                        'name'  => '바람의나라',
-                        'href'  => 'https://baram.nexon.com/',
+                        'name'  => '크레이지 아케이드',
+                        'href'  => 'https://ca.nexon.com/',
                     ],
                     [
                         'name'  => 'NEXON Open API',
-                        'href'  => 'https://openapi.nexon.com/game/baram/?id=13',
+                        'href'  => 'https://openapi.nexon.com/game/ca/?id=11',
                     ],
                 ],
             ],

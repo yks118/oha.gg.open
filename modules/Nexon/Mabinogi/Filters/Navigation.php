@@ -45,8 +45,18 @@ class Navigation implements FilterInterface
                 'href'  => site_to('nexon_mabinogi_dye_color'),
             ],
             [
-                'name'  => 'NEXON Open API',
-                'href'  => 'https://openapi.nexon.com/game/mabinogi/?id=32',
+                'name'  => '공식 홈페이지',
+                'href'  => '',
+                'child' => [
+                    [
+                        'name'  => '마비노기',
+                        'href'  => 'https://mabinogi.nexon.com/',
+                    ],
+                    [
+                        'name'  => 'NEXON Open API',
+                        'href'  => 'https://openapi.nexon.com/game/mabinogi/?id=32',
+                    ],
+                ],
             ],
         ]);
     }

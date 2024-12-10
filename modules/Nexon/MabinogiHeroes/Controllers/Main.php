@@ -18,9 +18,9 @@ class Main extends BaseController
         $api = nexon_mabinogi_heroes_services_api();
         try
         {
-            $data['data']['notice'] = $api->getNotice()['notice'];
-            $data['data']['patch']  = $api->getNoticePatch()['patch_notice'];
-            $data['data']['event']  = $api->getNoticeEvent()['event_notice'];
+            $data['data']['notice'] = $api->getNotice()['notice'] ?? null;
+            $data['data']['patch']  = $api->getNoticePatch()['patch_notice'] ?? null;
+            $data['data']['event']  = $api->getNoticeEvent()['event_notice'] ?? null;
         }
         catch (\Exception $e)
         {

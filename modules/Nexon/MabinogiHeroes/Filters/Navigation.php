@@ -40,6 +40,20 @@ class Navigation implements FilterInterface
                     ],
                 ],
             ],
+            [
+                'name'  => '공식 홈페이지',
+                'href'  => '',
+                'child' => [
+                    [
+                        'name'  => '마비노기 영웅전',
+                        'href'  => 'https://heroes.nexon.com/',
+                    ],
+                    [
+                        'name'  => 'NEXON Open API',
+                        'href'  => 'https://openapi.nexon.com/game/heroes/?id=29',
+                    ],
+                ],
+            ],
         ]);
     }
 

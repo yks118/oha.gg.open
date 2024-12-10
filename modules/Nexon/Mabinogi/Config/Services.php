@@ -9,7 +9,7 @@ class Services extends BaseService
     {
         if ($getShared)
         {
-            $service = static::getSharedInstance('api');
+            $service = static::getSharedInstance('nexonMabinogiApi');
             if ($service instanceof \Modules\Nexon\Mabinogi\Libraries\Api)
             {
                 return $service;

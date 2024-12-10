@@ -113,6 +113,10 @@ abstract class BaseController extends Controller
                     );
                 }
 
+                $this->response->setBody($page);
+                \CodeIgniter\Events\Events::trigger('post_controller_render_page');
+                $page = $this->response->getBody();
+
                 if (empty($this->thema->getLayout()))
                 {
                     $layout = $page;
@@ -133,6 +137,10 @@ abstract class BaseController extends Controller
                         ]
                     );
                 }
+
+                $this->response->setBody($layout);
+                \CodeIgniter\Events\Events::trigger('post_controller_render_layout');
+                $layout = $this->response->getBody();
 
                 if (isset($data['message']) && $data['message'])
                 {
