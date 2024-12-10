@@ -46,12 +46,13 @@ class Autoload extends AutoloadConfig
         'Modules\Core'  => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Core',
 
         // Nexon
-        'Modules\Nexon\Core'            => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Core',
-        'Modules\Nexon\Baram'           => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Baram',
-        'Modules\Nexon\BaramY'          => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'BaramY',
-        'Modules\Nexon\CrazyArcade'     => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'CrazyArcade',
-        'Modules\Nexon\Mabinogi'        => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Mabinogi',
-        'Modules\Nexon\MabinogiHeroes'  => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'MabinogiHeroes',
+        'Modules\Nexon\Core'                => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Core',
+        'Modules\Nexon\Baram'               => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Baram',
+        'Modules\Nexon\BaramY'              => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'BaramY',
+        'Modules\Nexon\CrazyArcade'         => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'CrazyArcade',
+        'Modules\Nexon\KartRiderRushPlus'   => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'KartRiderRushPlus',
+        'Modules\Nexon\Mabinogi'            => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Mabinogi',
+        'Modules\Nexon\MabinogiHeroes'      => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'MabinogiHeroes',
     ];
 
     /**
