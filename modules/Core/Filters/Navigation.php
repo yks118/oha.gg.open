@@ -27,6 +27,10 @@ class Navigation implements FilterInterface
                         'href'  => site_to('nexon_baram_main'),
                     ],
                     [
+                        'name'  => '바람의나라: 연',
+                        'href'  => site_to('nexon_baram_y_main'),
+                    ],
+                    [
                         'name'  => '크레이지 아케이드',
                         'href'  => site_to('nexon_crazy_arcade_main'),
                     ],

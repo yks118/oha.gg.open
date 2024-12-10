@@ -20,21 +20,25 @@
    Encryption() 함수 내부에서 암호화에 필요한 key 를 수정합니다.  
 
 ### NEXON
-#### 바람의나라
-1. [Api.php](modules/Nexon/Baram/Config/Api.php)  
-   개발키(dev)와 실제 서버키(prod)를 수정합니다.  
-
 #### 마비노기
 1. [Api.php](modules/Nexon/Mabinogi/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
 #### 마비노기 영웅전
 1. [Api.php](modules/Nexon/MabinogiHeroes/Config/Api.php)  
+   개발키(dev)와 실제 서버키(prod)를 수정합니다.  
+
+#### 바람의나라
+1. [Api.php](modules/Nexon/Baram/Config/Api.php)  
+   개발키(dev)와 실제 서버키(prod)를 수정합니다.  
+
+#### 바람의나라: 연
+1. [Api.php](modules/Nexon/BaramY/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.
 
 #### 크레이지 아케이드
 1. [Api.php](modules/Nexon/CrazyArcade/Config/Api.php)  
-   개발키(dev)와 실제 서버키(prod)를 수정합니다.
+   개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
 ## DB 설치
 개발모드(SetEnv CI_ENVIRONMENT development)로 메인 페이지에 접근하시면, 모듈 업데이트 버튼이 생성됩니다.  
