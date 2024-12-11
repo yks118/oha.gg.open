@@ -44,6 +44,10 @@
 1. [Api.php](modules/Nexon/CrazyArcade/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
+#### HIT2
+1. [Api.php](modules/Nexon/Hit2/Config/Api.php)  
+   개발키(dev)와 실제 서버키(prod)를 수정합니다.  
+
 #### V4
 1. [Api.php](modules/Nexon/V4/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
