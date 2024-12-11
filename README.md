@@ -37,11 +37,15 @@
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
 #### 카트라이더 러쉬플러스
-1. [Api.php](modules/Nexon/KartRiderRushPlus/Config/Api.php)
+1. [Api.php](modules/Nexon/KartRiderRushPlus/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
 #### 크레이지 아케이드
 1. [Api.php](modules/Nexon/CrazyArcade/Config/Api.php)  
+   개발키(dev)와 실제 서버키(prod)를 수정합니다.  
+
+#### V4
+1. [Api.php](modules/Nexon/V4/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
 ## DB 설치

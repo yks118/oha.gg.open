@@ -38,6 +38,10 @@ class Navigation implements FilterInterface
                         'name'  => '크레이지 아케이드',
                         'href'  => site_to('nexon_crazy_arcade_main'),
                     ],
+                    [
+                        'name'  => 'V4',
+                        'href'  => site_to('nexon_v4_main'),
+                    ],
                 ],
             ],
         ]);
