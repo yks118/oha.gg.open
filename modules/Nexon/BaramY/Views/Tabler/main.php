@@ -89,7 +89,7 @@
 
                 <div class="datagrid-item">
                     <div class="datagrid-title">캐릭터 성별</div>
-                    <div class="datagrid-content"><?php echo $basic['character_gender']; ?></div>
+                    <div class="datagrid-content"><?php echo convert_gender($basic['character_gender']); ?></div>
                 </div>
 
                 <div class="datagrid-item">

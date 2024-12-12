@@ -23,6 +23,10 @@ class Navigation implements FilterInterface
                         'href'  => site_to('nexon_mabinogi_heroes_main'),
                     ],
                     [
+                        'name'  => '메이플스토리M',
+                        'href'  => site_to('nexon_maple_story_m_main'),
+                    ],
+                    [
                         'name'  => '바람의나라',
                         'href'  => site_to('nexon_baram_main'),
                     ],

@@ -97,3 +97,31 @@ if (! function_usable('is_decimal'))
         return (float) $value != (int) $value;
     }
 }
+
+if (! function_usable('convert_gender'))
+{
+    function convert_gender(string $gender): string
+    {
+        $convert = $gender;
+
+        switch ($gender)
+        {
+            case 'Male':
+            case 'male':
+            case 'M':
+            case 'm':
+            case '남':
+                $convert = '남자';
+                break;
+            case 'Female':
+            case 'female':
+            case 'F':
+            case 'f':
+            case '여':
+                $convert = '여자';
+                break;
+        }
+
+        return $convert;
+    }
+}

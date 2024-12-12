@@ -28,6 +28,10 @@
 1. [Api.php](modules/Nexon/MabinogiHeroes/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  
 
+#### 메이플스토리M
+1. [Api.php](modules/Nexon/MapleStoryM/Config/Api.php)  
+   개발키(dev)와 실제 서버키(prod)를 수정합니다.  
+
 #### 바람의나라
 1. [Api.php](modules/Nexon/Baram/Config/Api.php)  
    개발키(dev)와 실제 서버키(prod)를 수정합니다.  

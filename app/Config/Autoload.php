@@ -54,6 +54,7 @@ class Autoload extends AutoloadConfig
         'Modules\Nexon\KartRiderRushPlus'   => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'KartRiderRushPlus',
         'Modules\Nexon\Mabinogi'            => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'Mabinogi',
         'Modules\Nexon\MabinogiHeroes'      => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'MabinogiHeroes',
+        'Modules\Nexon\MapleStoryM'         => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'MapleStoryM',
         'Modules\Nexon\V4'                  => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'V4',
     ];
 
