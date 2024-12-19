@@ -21,6 +21,11 @@ class HornBugleWorldHistory extends BaseController
         {
             $mHornBugleWorldHistory->search($data['data']['get'][$cCms->searchName]);
         }
+        else
+        {
+            // use index
+            $mHornBugleWorldHistory->where('server_name !=', '');
+        }
 
         $mHornBugleWorldHistory
             ->orderBy('date_send', 'DESC')

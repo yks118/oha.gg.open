@@ -25,11 +25,18 @@
             <?php echo form_close(); ?>
         </div>
 
-        <div class="card-footer">Total: <?php echo number_format($data['total'] ?? 0); ?></div>
+        <?php
+        if (isset($data['total']) && $data['total'] > 0)
+        {
+            ?>
+        <div class="card-footer">Total: <?php echo number_format($data['total']); ?></div>
+            <?php
+        }
+        ?>
     </div>
 
     <?php
-    if (isset($data['total'], $data['list']) && is_array($data['list']) && $data['total'] > 0)
+    if (isset($data['list']) && is_array($data['list']))
     {
         ?>
     <div class="row row-cards">
@@ -169,5 +176,45 @@
     }
     ?>
 
-    <?php echo $data['pagination'] ?? ''; ?>
+    <?php
+    if (isset($data['get']['page']))
+    {
+        if (isset($data['pagination']))
+        {
+            echo $data['pagination'];
+        }
+        else
+        {
+            ?>
+    <div class="card">
+        <div class="card-body">
+            <ul class="pagination">
+                <?php
+                $page = $data['get']['page'] - 1;
+                $url = clone current_url(true);
+                ?>
+                <li class="page-item page-prev <?php echo $data['get']['page'] === 1 ? 'disabled' : ''; ?>">
+                    <a class="page-link" href="<?php echo $url->addQuery('page', $page); ?>">
+                        <div class="page-item-subtitle">previous</div>
+                        <div class="page-item-title"><?php echo $page; ?></div>
+                    </a>
+                </li>
+
+                <?php
+                $page = $data['get']['page'] + 1;
+                $url = clone current_url(true);
+                ?>
+                <li class="page-item page-next">
+                    <a class="page-link" href="<?php echo $url->addQuery('page', $page); ?>">
+                        <div class="page-item-subtitle">next</div>
+                        <div class="page-item-title"><?php echo $page; ?></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+            <?php
+        }
+    }
+    ?>
 </section>

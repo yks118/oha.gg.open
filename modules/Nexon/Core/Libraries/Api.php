@@ -23,12 +23,7 @@ class Api
         ];
 
         $cCms = core_config_cms();
-        // 넥슨도 ipv6 지원을 안함..
-        if ($cCms->proxyIpv4)
-        {
-            $options['proxy'] = $cCms->proxyIpv4;
-        }
-        $this->client = \Config\Services::curlrequest($options);
+        $this->client = curl_request($options);
     }
 
     /**

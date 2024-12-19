@@ -41,11 +41,11 @@ class AuctionHistory extends BaseEntity
     public function search(string $key): string
     {
         $cCms = core_config_cms();
-        $uri = current_url(true);
+        $uri = clone current_url(true);
         switch ($key)
         {
             case 'item_name':
-                $uri->addQuery($cCms->searchName, 'item_name:"' . $this->item->item_name . '"');
+                $uri->addQuery($cCms->searchName, 'item_name =:"' . $this->item->item_name . '"');
                 break;
         }
 

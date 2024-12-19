@@ -63,7 +63,7 @@ class AuctionHistory extends BaseModel
     protected function _search(array $matches): self
     {
         $fieldItem = ['item_name'];
-        $fieldOption = ['option_type', 'option_sub_type', 'option_value', 'option_value2'];
+        $fieldOption = ['option'];
         if (in_array($matches['field'], $fieldItem))
         {
             $mItem = model(\Modules\Nexon\Mabinogi\Models\Item::class);
@@ -101,38 +101,42 @@ class AuctionHistory extends BaseModel
             }
 
             $mOption = model(\Modules\Nexon\Mabinogi\Models\ItemOption::class);
-            if ($matches['eq'])
-            {
-                $this->builder()
-                    ->whereIn(
-                        'item_uuid',
-                        function(BaseBuilder $builder) use($matches, $mOption)
+            $this->builder()
+                ->whereIn(
+                    'item_uuid',
+                    function(BaseBuilder $builder) use($matches, $mOption)
+                    {
+                        $builder
+                            ->select('item_uuid')
+                            ->from($mOption->builder()->getTable())
+                        ;
+
+                        list($type, $subType, $value, $value2) = explode(':', $matches['value']);
+                        if ($type)
                         {
-                            return $builder
-                                ->select('item_uuid')
-                                ->from($mOption->builder()->getTable())
-                                ->where($matches['field'] . $matches['eq'], $matches['value'])
-                            ;
+                            $builder->where('option_type', $type);
                         }
-                    )
-                ;
-            }
-            else
-            {
-                $this->builder()
-                    ->whereIn(
-                        'item_uuid',
-                        function(BaseBuilder $builder) use($matches, $mOption)
+
+                        if ($subType)
                         {
-                            return $builder
-                                ->select('item_uuid')
-                                ->from($mOption->builder()->getTable())
-                                ->like($matches['field'], $matches['value'])
-                            ;
+                            $builder->where('option_sub_type', $subType);
                         }
-                    )
-                ;
-            }
+
+                        if ($value)
+                        {
+                            $builder->where('option_value' . $matches['eq'], $value);
+                        }
+
+                        if ($value2)
+                        {
+                            $builder->where('option_value2' . $matches['eq'], $value2);
+                        }
+
+                        return $builder;
+                    }
+                )
+                ->where('date_auction_buy !=', '0000-00-00 00:00:00')
+            ;
 
             $this->builder()->groupEnd();
         }

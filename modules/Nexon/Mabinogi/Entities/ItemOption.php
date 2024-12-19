@@ -37,8 +37,18 @@ class ItemOption extends BaseEntity
     {
         if (is_null($this->dyeColor))
         {
-            $mDyeColor = model(\Modules\Nexon\Mabinogi\Models\DyeColor::class);
-            $this->dyeColor = $mDyeColor->where('rgb', $this->option_value)->findAll(1)[0] ?? null;
+            $cacheKey = 'nexon_mabinogi_get_dye_color_' . base64_encode($this->option_value);
+            $data = cache()->get($cacheKey);
+            if (is_null($data))
+            {
+                $mDyeColor = model(\Modules\Nexon\Mabinogi\Models\DyeColor::class);
+                $this->dyeColor = $mDyeColor->where('rgb', $this->option_value)->findAll(1)[0] ?? null;
+                cache()->save($cacheKey, $this->dyeColor ?? '', HOUR);
+            }
+            else
+            {
+                $this->dyeColor = empty($data) ? null : $data;
+            }
         }
 
         return $this->dyeColor;
@@ -47,20 +57,8 @@ class ItemOption extends BaseEntity
     public function search(): string
     {
         $cCms = core_config_cms();
-        $uri = current_url(true);
-        if ($this->option_sub_type)
-        {
-            $uri->addQuery($cCms->searchName, 'option_type:"' . $this->option_type . '" option_sub_type:"' . $this->option_sub_type . '" option_value:"' . $this->option_value . '"');
-        }
-        elseif ($this->option_value2)
-        {
-            $uri->addQuery($cCms->searchName, 'option_type:"' . $this->option_type . '" option_value:"' . $this->option_value . '" option_value2:"' . $this->option_value2 . '"');
-        }
-        else
-        {
-            $uri->addQuery($cCms->searchName, 'option_type:"' . $this->option_type . '" option_value:"' . $this->option_value . '"');
-        }
-
+        $uri = clone current_url(true);
+        $uri->addQuery($cCms->searchName, 'option:"' . $this->option_type . ':' . $this->option_sub_type . ':' . $this->option_value . ':' . $this->option_value2 . '"');
         return $uri;
     }
 }

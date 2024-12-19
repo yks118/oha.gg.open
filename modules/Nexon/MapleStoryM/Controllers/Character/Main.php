@@ -63,7 +63,7 @@ class Main extends BaseController
             }
         }
 
-        // $this->cachePage(MINUTE);
+        $this->cachePage(MINUTE);
         return $this->render($data);
     }
 }
