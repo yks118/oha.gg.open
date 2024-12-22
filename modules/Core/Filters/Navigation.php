@@ -43,6 +43,10 @@ class Navigation implements FilterInterface
                         'href'  => site_to('nexon_crazy_arcade_main'),
                     ],
                     [
+                        'name'  => '퍼스트 디센던트',
+                        'href'  => site_to('nexon_first_descendant_main'),
+                    ],
+                    [
                         'name'  => 'HIT2',
                         'href'  => site_to('nexon_hit2_main'),
                     ],

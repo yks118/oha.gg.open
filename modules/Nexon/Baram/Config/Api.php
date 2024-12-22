@@ -17,6 +17,6 @@ class Api
 
     /** @var string[] $serverNames */
     public array $serverNames = [
-        '연', '무휼', '유리', '진', '하자', '호동'
+        '연', '무휼', '유리', '진', '하자', '호동',
     ];
 }

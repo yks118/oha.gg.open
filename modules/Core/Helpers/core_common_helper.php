@@ -125,3 +125,65 @@ if (! function_usable('convert_gender'))
         return $convert;
     }
 }
+
+if (! function_usable('number_format_float'))
+{
+    function number_format_float(int|float $num): string
+    {
+        if (! str_contains($num, '.'))
+        {
+            return number_format($num);
+        }
+
+        list($num1, $num2) = explode('.', $num);
+        return number_format($num1) . '.' . $num2;
+    }
+}
+
+if (! function_usable('convert_second_to_sns'))
+{
+    function convert_second_to_sns(int $second): string
+    {
+        $result = '';
+        $time = $second;
+
+        if ($time >= DAY)
+        {
+            $result .= ' ' . ($time / DAY) . 'D';
+            $time %= DAY;
+        }
+
+        if ($time >= HOUR)
+        {
+            $result .= ' ' . ($time / HOUR) . 'H';
+            $time %= HOUR;
+        }
+
+        if ($time >= MINUTE)
+        {
+            $result .= ' ' . ($time / MINUTE) . 'M';
+            $time %= MINUTE;
+        }
+
+        if ($time > 0)
+        {
+            $result .= ' ' . $second . 's';
+        }
+
+        return trim($result);
+    }
+}
+
+if (! function_usable('curl_request'))
+{
+    function curl_request(array $options = []): \CodeIgniter\HTTP\CURLRequest
+    {
+        $cCms = config(\Modules\Core\Config\Cms::class);
+        if ($cCms->proxyIpv4)
+        {
+            $options['proxy'] = $cCms->proxyIpv4;
+        }
+
+        return \Config\Services::curlrequest($options);
+    }
+}

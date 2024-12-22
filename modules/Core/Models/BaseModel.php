@@ -91,12 +91,12 @@ class BaseModel extends Model
              * Ex. -field:"value"
              * Ex. OR field:"value"
              */
-            if (preg_match('/^(?<or>OR )?(?<not>-?)(?<field>[a-z0-9_]+)(?<eq> >| >=| <| <=)?:"(?<value>[^"]+)"/i', $text, $matches))
+            if (preg_match('/^(?<or>OR )?(?<not>-?)(?<field>[a-z0-9_]+)(?<eq> >| >=| <| <=| =| !=)?:"(?<value>[^"]+)"/i', $text, $matches))
             {
                 $this->_search($matches);
                 $cntCut = mb_strlen($matches[0]);
             }
-            elseif (preg_match('/^(?<or>OR )?(?<not>-?)(?<field>[a-z0-9_]+)(?<eq> >| >=| <| <=)?:(?<value>[^ ]+)/i', $text, $matches))
+            elseif (preg_match('/^(?<or>OR )?(?<not>-?)(?<field>[a-z0-9_]+)(?<eq> >| >=| <| <=| =| !=)?:(?<value>[^ ]+)/i', $text, $matches))
             {
                 $this->_search($matches);
                 $cntCut = mb_strlen($matches[0]);

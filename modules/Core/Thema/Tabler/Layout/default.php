@@ -158,9 +158,20 @@
                             <li class="list-inline-item">
                                 Copyright &copy; <?php echo date('Y'); ?>
                                 <a class="link-secondary" href="https://github.com/yks118">Yun KwangSeon</a>
-                                /
+                            </li>
+
+                            <li class="list-inline-item">
                                 Designed by <a class="link-secondary" href="https://tabler.io/admin-template">Tabler</a>
                             </li>
+
+                            <?php
+                            if (isset($copyrightApi) && $copyrightApi)
+                            {
+                                ?>
+                            <li class="list-inline-item"><?php echo $copyrightApi; ?></li>
+                                <?php
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
