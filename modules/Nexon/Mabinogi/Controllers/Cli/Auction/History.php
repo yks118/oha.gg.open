@@ -12,6 +12,7 @@ class History extends BaseController
         $api = nexon_mabinogi_services_api();
 
         $mAuctionHistoryStatus = model(\Modules\Nexon\Mabinogi\Models\AuctionHistoryStatus::class);
+        $mAuctionHistoryDate = model(\Modules\Nexon\Mabinogi\Models\AuctionHistoryDate::class);
         $mAuctionHistory = model(\Modules\Nexon\Mabinogi\Models\AuctionHistory::class);
         $mItem = model(\Modules\Nexon\Mabinogi\Models\Item::class);
         $mItemOption = model(\Modules\Nexon\Mabinogi\Models\ItemOption::class);
@@ -83,7 +84,7 @@ class History extends BaseController
                 ]);
 
                 $nextCursor = '';
-                $dataInsertAuctionHistory = [];
+                $dataInsertAuctionHistoryDate = $dataInsertAuctionHistory = [];
                 $dataInsertItemColorPart = $dataInsertItemOption = $dataInsertItem = [];
 
                 $auctionItemCategory = $eAuctionHistoryStatus->auction_item_category;
@@ -109,7 +110,16 @@ class History extends BaseController
                             break;
                         }
 
-                        $serialize = serialize($rowItem);
+                        $dateTime = date('Y-m-d H:i:s', $time);
+                        $date = date('Y-m-d', $time);
+
+                        $rowItemTmp = $rowItem;
+                        unset($rowItemTmp['auction_buy_id']);
+                        unset($rowItemTmp['item_count']);
+                        unset($rowItemTmp['auction_price_per_unit']);
+                        unset($rowItemTmp['date_auction_buy']);
+
+                        $serialize = serialize($rowItemTmp);
                         $md5 = md5($serialize);
                         $checkItem = false;
 
@@ -121,7 +131,7 @@ class History extends BaseController
                                 'item_uuid'                 => $md5s[$md5]['uuid'],
                                 'item_count'                => $rowItem['item_count'],
                                 'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                'date_auction_buy'          => date('Y-m-d H:i:s', $time),
+                                'date_auction_buy'          => $dateTime,
                             ];
                         }
                         else
@@ -132,6 +142,11 @@ class History extends BaseController
                             ;
                             foreach ($list as $eItem)
                             {
+                                $md5s[$md5] = [
+                                    'serialize' => $eItem->serialize,
+                                    'uuid'      => $eItem->uuid,
+                                ];
+
                                 if ($serialize === $eItem->serialize)
                                 {
                                     $checkItem = true;
@@ -140,7 +155,7 @@ class History extends BaseController
                                         'item_uuid'                 => $eItem->uuid,
                                         'item_count'                => $rowItem['item_count'],
                                         'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                        'date_auction_buy'          => date('Y-m-d H:i:s', $time),
+                                        'date_auction_buy'          => $dateTime,
                                     ];
                                 }
                             }
@@ -148,6 +163,21 @@ class History extends BaseController
 
                         if ($checkItem === false)
                         {
+                            $data = nexon_mabinogi_insert_item_data($rowItem, $serialize, $md5, $keyItem);
+                            $uuid = $data['uuid'];
+                            $dataInsertItem[] = $data['item'];
+                            $dataInsertItemOption = array_merge($dataInsertItemOption, $data['itemOption']);
+                            $dataInsertItemColorPart = array_merge($dataInsertItemColorPart, $data['itemColorPart']);
+
+                            $dataInsertAuctionHistory[] = [
+                                'auction_buy_id'            => $rowItem['auction_buy_id'],
+                                'item_uuid'                 => $uuid,
+                                'item_count'                => $rowItem['item_count'],
+                                'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
+                                'date_auction_buy'          => $dateTime,
+                            ];
+
+                            /*
                             $uuid = uuid();
                             $md5s[$md5] = [
                                 'serialize' => $serialize,
@@ -159,7 +189,7 @@ class History extends BaseController
                                 'item_uuid'                 => $uuid,
                                 'item_count'                => $rowItem['item_count'],
                                 'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                'date_auction_buy'          => date('Y-m-d H:i:s', $time),
+                                'date_auction_buy'          => $dateTime,
                             ];
 
                             $dataInsertItem[] = [
@@ -227,6 +257,28 @@ class History extends BaseController
                                     $keyItemOption++;
                                 }
                             }
+                             */
+                        }
+
+                        // history date
+                        $keyHistoryDate = $md5s[$md5]['uuid'] . '_' . $date;
+                        if (! isset($dataInsertAuctionHistoryDate[$keyHistoryDate]))
+                        {
+                            $dataInsertAuctionHistoryDate[$keyHistoryDate] = [
+                                'date'      => date('Y-m-d', $time),
+                                'item_uuid' => $md5s[$md5]['uuid'],
+                                'min'       => $rowItem['auction_price_per_unit'],
+                                'max'       => $rowItem['auction_price_per_unit'],
+                                'sum'       => $rowItem['auction_price_per_unit'] * $rowItem['item_count'],
+                                'count'     => $rowItem['item_count'],
+                            ];
+                        }
+                        else
+                        {
+                            $dataInsertAuctionHistoryDate[$keyHistoryDate]['min']    = min($dataInsertAuctionHistoryDate[$keyHistoryDate]['min'], $rowItem['auction_price_per_unit']);
+                            $dataInsertAuctionHistoryDate[$keyHistoryDate]['max']    = max($dataInsertAuctionHistoryDate[$keyHistoryDate]['max'], $rowItem['auction_price_per_unit']);
+                            $dataInsertAuctionHistoryDate[$keyHistoryDate]['sum']   += $rowItem['auction_price_per_unit'] * $rowItem['item_count'];
+                            $dataInsertAuctionHistoryDate[$keyHistoryDate]['count'] += $rowItem['item_count'];
                         }
                     }
 
@@ -239,6 +291,20 @@ class History extends BaseController
                 if (count($dataInsertAuctionHistory) > 0)
                 {
                     $mAuctionHistory->insertBatch($dataInsertAuctionHistory);
+
+                    $query = '
+                        INSERT INTO
+                            `' . $db->prefixTable($mAuctionHistoryDate->builder()->getTable()) . '`
+                            (`date`, `item_uuid`, `min`, `max`, `sum`, `count`)
+                        VALUES
+                            (' . implode('), (', array_map(function($row) { return '"' . implode('", "', $row) . '"'; }, $dataInsertAuctionHistoryDate)) . ')
+                        ON DUPLICATE KEY UPDATE
+                            `min`   = `min` + VALUES(`min`),
+                            `max`   = `max` + VALUES(`max`),
+                            `sum`   = `sum` + VALUES(`sum`),
+                            `count` = `count` + VALUES(`count`)
+                    ';
+                    $db->query($query);
                 }
 
                 if (count($dataInsertItem) > 0)
@@ -270,6 +336,11 @@ class History extends BaseController
             }
             catch (\Exception $e)
             {
+                // update status
+                $mAuctionHistoryStatus->update($eAuctionHistoryStatus->auction_item_category, [
+                    'status'    => 'f',
+                ]);
+
                 die('[' . $e->getLine() . ']' . $e->getMessage());
             }
         }

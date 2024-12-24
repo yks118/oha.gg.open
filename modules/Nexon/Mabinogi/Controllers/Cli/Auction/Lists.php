@@ -99,9 +99,17 @@ class Lists extends BaseController
 
                     foreach ($response['auction_item'] as $rowItem)
                     {
-                        $serialize = serialize($rowItem);
+                        $rowItemTmp = $rowItem;
+                        unset($rowItemTmp['item_count']);
+                        unset($rowItemTmp['auction_price_per_unit']);
+                        unset($rowItemTmp['date_auction_expire']);
+
+                        $serialize = serialize($rowItemTmp);
                         $md5 = md5($serialize);
                         $checkItem = false;
+
+                        $time = strtotime($rowItem['date_auction_expire']);
+                        $dateTime = date('Y-m-d H:i:s', $time);
 
                         if (isset($md5s[$md5]) && $md5s[$md5]['serialize'] === $serialize)
                         {
@@ -112,7 +120,7 @@ class Lists extends BaseController
                                 'item_uuid'                 => $md5s[$md5]['uuid'],
                                 'item_count'                => $rowItem['item_count'],
                                 'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                'date_auction_expire'       => date('Y-m-d H:i:s', strtotime($rowItem['date_auction_expire'])),
+                                'date_auction_expire'       => $dateTime,
                             ];
                         }
                         else
@@ -123,6 +131,11 @@ class Lists extends BaseController
                             ;
                             foreach ($list as $eItem)
                             {
+                                $md5s[$md5] = [
+                                    'serialize' => $serialize,
+                                    'uuid'      => $eItem->uuid,
+                                ];
+
                                 if ($serialize === $eItem->serialize)
                                 {
                                     $checkItem = true;
@@ -132,7 +145,7 @@ class Lists extends BaseController
                                         'item_uuid'                 => $eItem->uuid,
                                         'item_count'                => $rowItem['item_count'],
                                         'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                        'date_auction_expire'       => date('Y-m-d H:i:s', strtotime($rowItem['date_auction_expire'])),
+                                        'date_auction_expire'       => $dateTime,
                                     ];
                                 }
                             }
@@ -140,6 +153,22 @@ class Lists extends BaseController
 
                         if ($checkItem === false)
                         {
+                            $data = nexon_mabinogi_insert_item_data($rowItem, $serialize, $md5, $keyAuctionList);
+                            $uuid = $data['uuid'];
+                            $dataInsertItem[] = $data['item'];
+                            $dataInsertItemOption = array_merge($dataInsertItemOption, $data['itemOption']);
+                            $dataInsertItemColorPart = array_merge($dataInsertItemColorPart, $data['itemColorPart']);
+
+                            $dataInsertAuctionList[] = [
+                                'auction_item_category'     => $auctionItemCategory,
+                                'id'                        => $keyAuctionList,
+                                'item_uuid'                 => $uuid,
+                                'item_count'                => $rowItem['item_count'],
+                                'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
+                                'date_auction_expire'       => $dateTime,
+                            ];
+
+                            /*
                             $uuid = uuid();
                             $md5s[$md5] = [
                                 'serialize' => $serialize,
@@ -152,7 +181,7 @@ class Lists extends BaseController
                                 'item_uuid'                 => $uuid,
                                 'item_count'                => $rowItem['item_count'],
                                 'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                'date_auction_expire'       => date('Y-m-d H:i:s', strtotime($rowItem['date_auction_expire'])),
+                                'date_auction_expire'       => $dateTime,
                             ];
 
                             $dataInsertItem[] = [
@@ -215,6 +244,7 @@ class Lists extends BaseController
                                     $keyItemOption++;
                                 }
                             }
+                             */
                         }
 
                         $keyAuctionList++;

@@ -5,6 +5,8 @@ class HornBugleWorldHistory extends BaseController
 {
     protected string $viewName = 'horn-bugle-world-history';
 
+    private int $limit = 10;
+
     public function index(): \CodeIgniter\HTTP\ResponseInterface|string
     {
         $this->navigation->setNowHref(site_to('nexon_mabinogi_horn_bugle_world_history'));
@@ -21,10 +23,10 @@ class HornBugleWorldHistory extends BaseController
         {
             $mHornBugleWorldHistory->search($data['data']['get'][$cCms->searchName]);
         }
-        else
+
+        if (! (isset($data['data']['get']['page']) && $data['data']['get']['page'] > 0))
         {
-            // use index
-            $mHornBugleWorldHistory->where('server_name !=', '');
+            $data['data']['get']['page'] = 1;
         }
 
         $mHornBugleWorldHistory
@@ -32,11 +34,16 @@ class HornBugleWorldHistory extends BaseController
             ->orderBy('server_name', 'ASC')
             ->orderBy('character_name', 'ASC')
         ;
+        /*
         $data['data']['list']       = $mHornBugleWorldHistory->paginate(10);
         $data['data']['pagination'] = $mHornBugleWorldHistory->pager->links(template: 'thema');
         $data['data']['total']      = $mHornBugleWorldHistory->pager->getTotal();
+         */
+        $offset = ($data['data']['get']['page'] - 1) * $this->limit;
+        $data['data']['list'] = $mHornBugleWorldHistory->findAll($this->limit, $offset);
 
-        $this->cachePage(MINUTE);
+        // CREATE INDEX `order_by` ON `ci_nexon_mabinogi_horn_bugle_world_history` (`date_send` DESC, `server_name` ASC, `character_name` ASC);
+        // $this->cachePage(MINUTE);
         return $this->render($data);
     }
 }

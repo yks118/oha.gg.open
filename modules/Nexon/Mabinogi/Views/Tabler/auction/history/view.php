@@ -49,7 +49,7 @@
                             if ($eItemOption->dyeColor)
                             {
                                 ?>
-                        <small><?php echo $eItemOption->dyeColor->name; ?></small>
+                        <small><?php echo $eItemOption->dyeColor->name_full; ?></small>
                                 <?php
                             }
                         }
@@ -85,47 +85,136 @@
     ?>
 
     <?php
-    if (isset($data['history']['list'], $data['history']['total']) && is_array($data['history']['list']) && $data['history']['total'] > 0)
+    if (isset($data['history']['list']) && is_array($data['history']['list']))
     {
         ?>
-    <div class="card mb-3">
-        <div class="card-header">
-            <div>
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="card-title">거래 내역</div>
-                        <div class="card-subtitle">
-                            <span class="text-success">최소 가격: <?php echo number_format($data['history']['min']); ?></span>
-                            /
-                            평균 가격: <?php echo number_format($data['history']['avg']); ?>
-                            /
-                            <span class="text-danger">최대 가격: <?php echo number_format($data['history']['max']); ?></span>
+    <div class="row row-cards">
+        <?php
+        foreach ($data['history']['list'] as $key => $eAuctionHistoryDate)
+        {
+            if ($eAuctionHistoryDate instanceof \Modules\Nexon\Mabinogi\Entities\AuctionHistoryDate)
+            {
+                ?>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title"><?php echo $eAuctionHistoryDate->date->format('Y-m-d'); ?></h3>
+                        <p class="card-subtitle"></p>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="datagrid">
+                        <div class="datagrid-item">
+                            <div class="datagrid-title">최소 가격</div>
+                            <div class="datagrid-content">
+                                <?php
+                                echo number_format($eAuctionHistoryDate->min);
+
+                                if (isset($data['history']['list'][$key + 1]))
+                                {
+                                    if ($eAuctionHistoryDate->min < $data['history']['list'][$key + 1]->min)
+                                    {
+                                        ?>
+                                <small class="text-success">-<?php echo number_format($data['history']['list'][$key + 1]->min - $eAuctionHistoryDate->min); ?></small>
+                                        <?php
+                                    }
+                                    elseif ($eAuctionHistoryDate->min > $data['history']['list'][$key + 1]->min)
+                                    {
+                                        ?>
+                                <small class="text-danger">+<?php echo number_format($eAuctionHistoryDate->min - $data['history']['list'][$key + 1]->min); ?></small>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="datagrid-item">
+                            <div class="datagrid-title">최대 가격</div>
+                            <div class="datagrid-content">
+                                <?php
+                                echo number_format($eAuctionHistoryDate->max);
+
+                                if (isset($data['history']['list'][$key + 1]))
+                                {
+                                    if ($eAuctionHistoryDate->max < $data['history']['list'][$key + 1]->max)
+                                    {
+                                        ?>
+                                <small class="text-success">-<?php echo number_format($data['history']['list'][$key + 1]->max - $eAuctionHistoryDate->max); ?></small>
+                                        <?php
+                                    }
+                                    elseif ($eAuctionHistoryDate->max > $data['history']['list'][$key + 1]->max)
+                                    {
+                                        ?>
+                                <small class="text-danger">+<?php echo number_format($eAuctionHistoryDate->max - $data['history']['list'][$key + 1]->max); ?></small>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="datagrid-item">
+                            <div class="datagrid-title">평균 가격</div>
+                            <div class="datagrid-content">
+                                <?php
+                                $avgNow = $eAuctionHistoryDate->sum / $eAuctionHistoryDate->count;
+                                echo number_format($avgNow);
+
+                                if (isset($data['history']['list'][$key + 1]))
+                                {
+                                    $avgNext = $data['history']['list'][$key + 1]->sum / $data['history']['list'][$key + 1]->count;
+                                    if ($avgNow < $avgNext)
+                                    {
+                                        ?>
+                                <small class="text-success">-<?php echo number_format($avgNext - $avgNow); ?></small>
+                                        <?php
+                                    }
+                                    elseif ($avgNow > $avgNext)
+                                    {
+                                        ?>
+                                <small class="text-danger">+<?php echo number_format($avgNow - $avgNext); ?></small>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="datagrid-item">
+                            <div class="datagrid-title">거래량</div>
+                            <div class="datagrid-content">
+                                <?php
+                                echo number_format($eAuctionHistoryDate->count);
+
+                                if (isset($data['history']['list'][$key + 1]))
+                                {
+                                    if ($eAuctionHistoryDate->count < $data['history']['list'][$key + 1]->count)
+                                    {
+                                        ?>
+                                <small class="text-success">-<?php echo number_format($data['history']['list'][$key + 1]->count - $eAuctionHistoryDate->count); ?></small>
+                                        <?php
+                                    }
+                                    elseif ($eAuctionHistoryDate->count > $data['history']['list'][$key + 1]->count)
+                                    {
+                                        ?>
+                                <small class="text-danger">+<?php echo number_format($eAuctionHistoryDate->count - $data['history']['list'][$key + 1]->count); ?></small>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="list-group list-group-flush list-group-hoverable">
-            <?php
-            foreach ($data['history']['list'] as $eAuctionHistory)
-            {
-                if ($eAuctionHistory instanceof \Modules\Nexon\Mabinogi\Entities\AuctionHistory)
-                {
-                    ?>
-            <a class="list-group-item" href="<?php echo $eAuctionHistory->item->getUrlViews()['uuid']['href']; ?>">
-                <div class="text-truncate">
-                    <div class="text-reset d-block"><?php echo number_format($eAuctionHistory->auction_price_per_unit); ?></div>
-                    <div class="d-block text-secondary text-truncate mt-n1"><?php echo $eAuctionHistory->date_auction_buy->format('Y-m-d H:i:s'); ?></div>
-                </div>
-            </a>
-                    <?php
-                }
+                <?php
             }
-            ?>
-        </div>
-
-        <div class="card-footer">Total: <?php echo number_format($data['history']['total']); ?></div>
+        }
+        ?>
     </div>
         <?php
     }

@@ -59,7 +59,7 @@ class SalesCommission extends BaseController
                 ->selectCount('*', 'count')
                 ->selectSum('nexon_mabinogi_auction_list.item_count', 'count_sum')
                 ->join('nexon_mabinogi_item', 'nexon_mabinogi_auction_list.item_uuid = nexon_mabinogi_item.uuid')
-                ->like('nexon_mabinogi_item.item_name', '경매장 수수료 % 할인 쿠폰')
+                ->like('nexon_mabinogi_item.item_name', '경매장 수수료 % 할인 쿠폰', 'none')
                 ->groupBy('nexon_mabinogi_item.item_name')
                 ->builder()
                 ->get()

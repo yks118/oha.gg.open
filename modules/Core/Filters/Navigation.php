@@ -11,7 +11,7 @@ class Navigation implements FilterInterface
     {
         \Modules\Core\Config\Services::navigation()->set([
             [
-                'name'  => '넥슨',
+                'name'  => 'NEXON',
                 'href'  => '',
                 'child' => [
                     [

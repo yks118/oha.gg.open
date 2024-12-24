@@ -17,8 +17,6 @@ class View extends BaseController
         ];
 
         $mItem = model(\Modules\Nexon\Mabinogi\Models\Item::class);
-        $mAuctionHistory = model(\Modules\Nexon\Mabinogi\Models\AuctionHistory::class);
-
         $uuids = [];
         switch ($key)
         {
@@ -38,25 +36,21 @@ class View extends BaseController
                 break;
         }
 
-        $mAuctionHistory->orderBy('date_auction_buy', 'DESC');
-        $data['data']['history']['list']        = $mAuctionHistory->whereIn('item_uuid', $uuids)->paginate(12);
-        $data['data']['history']['pagination']  = $mAuctionHistory->pager->links(template: 'thema');
-        $data['data']['history']['total']       = $mAuctionHistory->pager->getTotal();
-
-        $row = $mAuctionHistory
-            ->selectMin('auction_price_per_unit', 'min')
-            ->selectAvg('auction_price_per_unit', 'avg')
-            ->selectMax('auction_price_per_unit', 'max')
+        $mAuctionHistoryDate = model(\Modules\Nexon\Mabinogi\Models\AuctionHistoryDate::class);
+        $data['data']['history']['list'] = $mAuctionHistoryDate
+            ->select('date, item_uuid')
+            ->selectMin('min', 'min')
+            ->selectMax('max', 'max')
+            ->selectSum('sum', 'sum')
+            ->selectSum('count', 'count')
+            ->where('date >=', date('Y-m-d H:i:s', strtotime('-30 day')))
             ->whereIn('item_uuid', $uuids)
-            ->limit(1)
-            ->builder()
-            ->get()
-            ->getRowArray()
+            ->groupBy('date')
+            ->orderBy('date', 'DESC')
+            ->findAll(30)
         ;
-        $data['data']['history']['min']     = $row['min'];
-        $data['data']['history']['avg']     = $row['avg'];
-        $data['data']['history']['max']     = $row['max'];
 
+        $this->cachePage(MINUTE);
         return $this->render($data);
     }
 }
