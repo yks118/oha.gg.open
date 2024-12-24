@@ -43,7 +43,7 @@ class HornBugleWorldHistory extends BaseController
         $data['data']['list'] = $mHornBugleWorldHistory->findAll($this->limit, $offset);
 
         // CREATE INDEX `order_by` ON `ci_nexon_mabinogi_horn_bugle_world_history` (`date_send` DESC, `server_name` ASC, `character_name` ASC);
-        // $this->cachePage(MINUTE);
+        $this->cachePage(MINUTE);
         return $this->render($data);
     }
 }
