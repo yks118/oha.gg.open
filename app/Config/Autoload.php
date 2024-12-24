@@ -57,6 +57,10 @@ class Autoload extends AutoloadConfig
         'Modules\Nexon\MabinogiHeroes'      => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'MabinogiHeroes',
         'Modules\Nexon\MapleStoryM'         => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'MapleStoryM',
         'Modules\Nexon\V4'                  => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Nexon' . DIRECTORY_SEPARATOR . 'V4',
+
+        // NCSOFT
+        'Modules\NcSoft\Core'       => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'NcSoft' . DIRECTORY_SEPARATOR . 'Core',
+        'Modules\NcSoft\Lineage2M'  => ROOTPATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'NcSoft' . DIRECTORY_SEPARATOR . 'Lineage2M',
     ];
 
     /**
