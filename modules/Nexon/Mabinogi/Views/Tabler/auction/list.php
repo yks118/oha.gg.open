@@ -129,7 +129,7 @@
                                     if ($eItemOption->dyeColor)
                                     {
                                         ?>
-                                <small><?php echo $eItemOption->dyeColor->name; ?></small>
+                                <small><?php echo $eItemOption->dyeColor->name_full; ?></small>
                                         <?php
                                     }
                                 }
@@ -190,24 +190,24 @@
         <div class="card-body">
             <ul class="pagination">
                 <?php
-                $page = $data['get']['page'] - 1;
+                $page = $data['get']['page'];
                 $url = clone current_url(true);
+                if (isset($data['get']['next_cursor']) && $data['get']['next_cursor'])
+                {
+                    $url->addQuery('next_cursor', $data['get']['next_cursor']);
+                }
                 ?>
                 <li class="page-item page-prev <?php echo $data['get']['page'] === 1 ? 'disabled' : ''; ?>">
-                    <a class="page-link" href="<?php echo $url->addQuery('page', $page); ?>">
+                    <a class="page-link" href="<?php echo $url->addQuery('page', $page - 1); ?>">
                         <div class="page-item-subtitle">previous</div>
-                        <div class="page-item-title"><?php echo $page; ?></div>
+                        <div class="page-item-title"><?php echo $page - 1; ?></div>
                     </a>
                 </li>
 
-                <?php
-                $page = $data['get']['page'] + 1;
-                $url = clone current_url(true);
-                ?>
                 <li class="page-item page-next">
-                    <a class="page-link" href="<?php echo $url->addQuery('page', $page); ?>">
+                    <a class="page-link" href="<?php echo $url->addQuery('page', $page + 1); ?>">
                         <div class="page-item-subtitle">next</div>
-                        <div class="page-item-title"><?php echo $page; ?></div>
+                        <div class="page-item-title"><?php echo $page + 1; ?></div>
                     </a>
                 </li>
             </ul>

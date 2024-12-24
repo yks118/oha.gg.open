@@ -129,7 +129,7 @@
                                     if ($eItemOption->dyeColor)
                                     {
                                         ?>
-                                <small><?php echo $eItemOption->dyeColor->name; ?></small>
+                                <small><?php echo $eItemOption->dyeColor->name_full; ?></small>
                                         <?php
                                     }
                                 }

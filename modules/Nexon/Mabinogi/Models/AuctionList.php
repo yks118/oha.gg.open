@@ -16,8 +16,8 @@ class AuctionList extends BaseModel
     ];
 
     protected array $searchFields = [
-        'item_name',
-        'auction_item_category',
+        // 'item_name',
+        // 'auction_item_category',
     ];
 
     protected $returnType = \Modules\Nexon\Mabinogi\Entities\AuctionList::class;

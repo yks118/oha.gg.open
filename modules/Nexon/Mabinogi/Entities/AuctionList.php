@@ -33,7 +33,30 @@ class AuctionList extends BaseEntity
         if (is_null($this->item))
         {
             $mItem = model(\Modules\Nexon\Mabinogi\Models\Item::class);
-            $this->item = $mItem->find($this->item_uuid);
+            if (empty($this->item_uuid))
+            {
+                $row = $this->attributes;
+                unset($row['item_count']);
+                unset($row['auction_price_per_unit']);
+                unset($row['date_auction_expire']);
+                $serialize = serialize($row);
+                $md5 = md5($serialize);
+                $this->item = $mItem->where('md5', $md5)->findAll()[0] ?? null;
+                if (empty($this->item) || $this->item->serialize !== $serialize)
+                {
+                    try
+                    {
+                        nexon_mabinogi_insert_item($this->attributes, $serialize, $md5, 0);
+                        $this->item = $mItem->where('md5', $md5)->findAll()[0] ?? null;
+                    }
+                    catch (\ReflectionException $e)
+                    {}
+                }
+            }
+            else
+            {
+                $this->item = $mItem->find($this->item_uuid);
+            }
         }
 
         return $this->item;

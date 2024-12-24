@@ -240,6 +240,62 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
     }
 
     /**
+     * getAuctionKeywordSearch
+     *
+     * 현재 경매장에서 판매 중인 매물에 대한 키워드 검색
+     *
+     * @link https://openapi.nexon.com/ko/game/mabinogi/?id=33
+     *
+     * @since 2024.12.19
+     *
+     * @param string $keyword
+     * @param string $cursor
+     *
+     * @return array{
+     *     auction_item: array{
+     *         array{
+     *             item_name: string,
+     *             item_display_name: string,
+     *             item_count: int,
+     *             auction_price_per_unit: int,
+     *             date_auction_expire: string,
+     *             item_option: array{
+     *                 array{
+     *                     option_type: string,
+     *                     option_sub_type: string,
+     *                     option_value: string,
+     *                     option_value2: string,
+     *                     option_desc: string,
+     *                 },
+     *             },
+     *         },
+     *     },
+     *     next_cursor: string,
+     * }
+     *
+     * @throws Exception
+     */
+    public function getAuctionKeywordSearch(string $keyword, string $cursor = ''): array
+    {
+        $url = 'auction/keyword-search?keyword=' . $keyword;
+        if ($cursor)
+        {
+            $url .= '&cursor=' . $cursor;
+        }
+
+        $response = $this->client->request('GET', $url);
+
+        $statusCode = $response->getStatusCode();
+        $data = json_decode($response->getBody(), true);
+        if ($statusCode === 200)
+        {
+            return $data;
+        }
+
+        $this->error($data, $statusCode);
+    }
+
+    /**
      * getHornBugleWorld
      *
      * 1시간동안의 이력을 리턴해줌
