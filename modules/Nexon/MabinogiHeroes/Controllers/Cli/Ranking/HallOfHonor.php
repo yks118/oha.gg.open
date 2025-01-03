@@ -36,7 +36,7 @@ class HallOfHonor extends BaseController
                     $response['ranking']
                 );
 
-                $db->transStart();
+                $db->transException(true)->transStart();
                 $mRankingHallOfHonor->insertBatch($dataInsert);
                 $db->transComplete();
             }

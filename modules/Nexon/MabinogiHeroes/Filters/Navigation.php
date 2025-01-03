@@ -24,7 +24,17 @@ class Navigation implements FilterInterface
             ],
             [
                 'name'  => '거래소 정보 조회',
-                'href'  => site_to('nexon_mabinogi_heroes_marketplace_market_history'),
+                'href'  => '',
+                'child' => [
+                    [
+                        'name'  => '거래 내역',
+                        'href'  => site_to('nexon_mabinogi_heroes_marketplace_history'),
+                    ],
+                    [
+                        'name'  => '거래량 상위 정보',
+                        'href'  => site_to('nexon_mabinogi_heroes_marketplace_gold_top_main'),
+                    ],
+                ],
             ],
             [
                 'name'  => '랭킹 정보 조회',

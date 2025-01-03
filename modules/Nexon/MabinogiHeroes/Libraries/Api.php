@@ -480,6 +480,72 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
     }
 
     /**
+     * getMarketplaceGoldMarketBuyTop30
+     *
+     * 최근 1주 동안 골드 거래소에서 골드 구매량이 가장 많은 상위 30명 유저의 골드 구매량을 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/heroes/?id=30
+     *
+     * @return array{
+     *     buy_gold: array{
+     *         array{
+     *             cairde_name: string,
+     *             buy_gold: int,
+     *         },
+     *     },
+     * }
+     *
+     * @throws Exception
+     */
+    public function getMarketplaceGoldMarketBuyTop30(): array
+    {
+        $url = 'v2/marketplace/gold-market-buy-top-30';
+        $response = $this->client->request('GET', $url);
+
+        $statusCode = $response->getStatusCode();
+        $data = json_decode($response->getBody(), true);
+        if ($statusCode === 200)
+        {
+            return $data;
+        }
+
+        $this->error($data, $statusCode);
+    }
+
+    /**
+     * getMarketplaceGoldMarketSellTop30
+     *
+     * 최근 1주 동안 골드 거래소에서 골드 판매량이 가장 많은 상위 30명 유저의 골드 판매량을 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/heroes/?id=30
+     *
+     * @return array{
+     *     sell_gold: array{
+     *         array{
+     *             cairde_name: string,
+     *             sell_gold: int,
+     *         },
+     *     },
+     * }
+     *
+     * @throws Exception
+     */
+    public function getMarketplaceGoldMarketSellTop30(): array
+    {
+        $url = 'v2/marketplace/gold-market-sell-top-30';
+        $response = $this->client->request('GET', $url);
+
+        $statusCode = $response->getStatusCode();
+        $data = json_decode($response->getBody(), true);
+        if ($statusCode === 200)
+        {
+            return $data;
+        }
+
+        $this->error($data, $statusCode);
+    }
+
+    /**
      * getRankingHallOfHonor
      *
      * 명예의 전당 랭킹은 매일 오전 9시 실시간 랭킹 순위를 기준으로 반영됩니다.

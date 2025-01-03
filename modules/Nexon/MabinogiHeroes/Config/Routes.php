@@ -14,7 +14,6 @@ $routes->group(
     {
         $routes->get('/', 'Main::index', ['as' => 'nexon_mabinogi_heroes_main']);
         $routes->get('meta-enchant', 'MetaEnchant::index', ['as' => 'nexon_mabinogi_heroes_meta_enchant']);
-        $routes->get('marketplace-market-history', 'MarketplaceMarketHistory::index', ['as' => 'nexon_mabinogi_heroes_marketplace_market_history']);
 
         $routes->group(
             'character',
@@ -26,6 +25,29 @@ $routes->group(
                 $routes->get('', 'Main::index', ['as' => 'nexon_mabinogi_heroes_character_main']);
                 $routes->get('item-equipment', 'ItemEquipment::index', ['as' => 'nexon_mabinogi_heroes_character_item_equipment']);
                 $routes->get('title-equipment', 'TitleEquipment::index', ['as' => 'nexon_mabinogi_heroes_character_title_equipment']);
+            }
+        );
+
+        $routes->group(
+            'marketplace',
+            [
+                'namespace' => '\Modules\Nexon\MabinogiHeroes\Controllers\Marketplace',
+            ],
+            function (RouteCollection $routes)
+            {
+                $routes->get('history',         'History::index',       ['as' => 'nexon_mabinogi_heroes_marketplace_history']);
+
+                $routes->group(
+                    'gold-top',
+                    [
+                        'namespace' => '\Modules\Nexon\MabinogiHeroes\Controllers\Marketplace\GoldTop',
+                    ],
+                    function (RouteCollection $routes)
+                    {
+                        $routes->get('',                    'Main::index',      ['as' => 'nexon_mabinogi_heroes_marketplace_gold_top_main']);
+                        $routes->get('detail/(:segment)',   'Detail::index/$1', ['as' => 'nexon_mabinogi_heroes_marketplace_gold_top_detail']);
+                    }
+                );
             }
         );
 
@@ -48,6 +70,17 @@ $routes->group(
             ],
             function (RouteCollection $routes)
             {
+                $routes->group(
+                    'marketplace',
+                    [
+                        'namespace' => '\Modules\Nexon\MabinogiHeroes\Controllers\Cli\Marketplace',
+                    ],
+                    function (RouteCollection $routes)
+                    {
+                        $routes->cli('gold-top', 'GoldTop::index');
+                    }
+                );
+
                 $routes->group(
                     'ranking',
                     [

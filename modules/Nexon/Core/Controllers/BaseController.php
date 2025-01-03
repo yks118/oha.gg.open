@@ -20,6 +20,6 @@ abstract class BaseController extends \Modules\Core\Controllers\BaseController
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        $this->html->addTitle('넥슨');
+        $this->html->addTitle('NEXON');
     }
 }

@@ -3,6 +3,7 @@ namespace Modules\Nexon\Mabinogi\Controllers\Cli;
 
 use Exception;
 use Modules\Nexon\Mabinogi\Controllers\BaseController;
+use ReflectionException;
 
 class NpcShopList extends BaseController
 {
@@ -39,6 +40,10 @@ class NpcShopList extends BaseController
                 try
                 {
                     $response = $this->api->getNpcShopList($eNpcShopList->npc_name, $eNpcShopList->server_name, $eNpcShopList->channel);
+
+                    $db = db_connect();
+                    $db->transException(true)->transStart();
+
                     $this->mNpcShopList
                         ->set('date_inquire', date('Y-m-d H:i:s', strtotime($response['date_inquire'])))
                         ->set('date_shop_next_update', date('Y-m-d H:i:s', strtotime($response['date_shop_next_update'])))
@@ -46,6 +51,8 @@ class NpcShopList extends BaseController
                         ->update()
                     ;
                     $this->update($eNpcShopList->id, $response);
+
+                    $db->transComplete();
                 }
                 catch (Exception $e)
                 {
@@ -125,6 +132,9 @@ class NpcShopList extends BaseController
         }
     }
 
+    /**
+     * @throws ReflectionException
+     */
     private function update(int $id, array $response): void
     {
         $mNpcShopListShopItem = model(\Modules\Nexon\Mabinogi\Models\NpcShopListShopItem::class);
@@ -222,29 +232,19 @@ class NpcShopList extends BaseController
             }
         }
 
-        try
+        if (count($dataItem) > 0)
         {
-            if (count($dataItem) > 0)
+            $mNpcShopListShopItem->insertBatch($dataItem);
+
+            if (count($dataItemOption) > 0)
             {
-                $db = db_connect();
-                $db->transStart();
+                $mNpcShopListShopItemOption->insertBatch($dataItemOption);
 
-                $mNpcShopListShopItem->insertBatch($dataItem);
-
-                if (count($dataItemOption) > 0)
+                if (count($dataItemColorPart) > 0)
                 {
-                    $mNpcShopListShopItemOption->insertBatch($dataItemOption);
-
-                    if (count($dataItemColorPart) > 0)
-                    {
-                        $mNpcShopListShopItemColorPart->insertBatch($dataItemColorPart);
-                    }
+                    $mNpcShopListShopItemColorPart->insertBatch($dataItemColorPart);
                 }
-
-                $db->transComplete();
             }
         }
-        catch (\ReflectionException $e)
-        {}
     }
 }

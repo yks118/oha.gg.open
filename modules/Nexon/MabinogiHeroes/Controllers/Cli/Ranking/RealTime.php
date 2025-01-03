@@ -34,7 +34,7 @@ class RealTime extends BaseController
                     $dataInsert = array_merge($dataInsert, $response['ranking']);
                 }
 
-                $db->transStart();
+                $db->transException(true)->transStart();
                 $mRankingRealTime->where('ranking_type', $i)->delete();
                 $mRankingRealTime->insertBatch($dataInsert);
                 $db->transComplete();

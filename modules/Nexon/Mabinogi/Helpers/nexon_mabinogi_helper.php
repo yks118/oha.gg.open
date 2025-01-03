@@ -127,3 +127,27 @@ if (! function_usable('nexon_mabinogi_insert_item'))
         }
     }
 }
+
+if (! function_usable('nexon_mabinogi_delete_item'))
+{
+    function nexon_mabinogi_delete_item(string $uuid): void
+    {
+        $db = db_connect();
+        $db->transException(true)->transStart();
+
+        $mItem = model(\Modules\Nexon\Mabinogi\Models\Item::class);
+        $mItem->delete($uuid);
+
+        $mItemOption = model(\Modules\Nexon\Mabinogi\Models\ItemOption::class);
+        $mItemOption
+            ->where('item_uuid', $uuid)
+            ->where('id !=', '')
+            ->delete()
+        ;
+
+        $mItemColorPart = model(\Modules\Nexon\Mabinogi\Models\ItemColorPart::class);
+        $mItemColorPart->delete($uuid);
+
+        $db->transComplete();
+    }
+}

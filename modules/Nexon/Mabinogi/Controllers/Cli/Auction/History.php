@@ -56,12 +56,14 @@ class History extends BaseController
 
         try
         {
+            /*
             $mAuctionHistoryStatus
                 ->set('status', 'f')
                 ->where('status !=', 'f')
                 ->where('updated_at <=', date('Y-m-d H:i:s', strtotime('-10 minutes')))
                 ->update()
             ;
+             */
 
             $mAuctionHistoryStatus
                 ->set('status', 'w')
@@ -89,14 +91,14 @@ class History extends BaseController
 
                 $auctionItemCategory = $eAuctionHistoryStatus->auction_item_category;
                 $checkTime = $eAuctionHistoryStatus->date_auction_buy->getTimestamp();
-                $dateAuctionBuy = '0000-00-00 00:00:00';
+                $dateAuctionBuy = $checkDateTime = $eAuctionHistoryStatus->date_auction_buy->format('Y-m-d H:i:s');
 
                 /** @var array{md5: array{serialize: string, uuid: string}} $md5s */
                 $md5s = [];
                 do
                 {
                     $response = $api->getAuctionHistory($auctionItemCategory, '', $nextCursor);
-                    if (isset($response['auction_history'][0]))
+                    if (isset($response['auction_history'][0]) && $dateAuctionBuy === $checkDateTime)
                     {
                         $dateAuctionBuy = date('Y-m-d H:i:s', strtotime($response['auction_history'][0]['date_auction_buy']));
                     }
@@ -149,14 +151,21 @@ class History extends BaseController
 
                                 if ($serialize === $eItem->serialize)
                                 {
-                                    $checkItem = true;
-                                    $dataInsertAuctionHistory[] = [
-                                        'auction_buy_id'            => $rowItem['auction_buy_id'],
-                                        'item_uuid'                 => $eItem->uuid,
-                                        'item_count'                => $rowItem['item_count'],
-                                        'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                        'date_auction_buy'          => $dateTime,
-                                    ];
+                                    if ($checkItem)
+                                    {
+                                        nexon_mabinogi_delete_item($eItem->uuid);
+                                    }
+                                    else
+                                    {
+                                        $checkItem = true;
+                                        $dataInsertAuctionHistory[] = [
+                                            'auction_buy_id'            => $rowItem['auction_buy_id'],
+                                            'item_uuid'                 => $eItem->uuid,
+                                            'item_count'                => $rowItem['item_count'],
+                                            'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
+                                            'date_auction_buy'          => $dateTime,
+                                        ];
+                                    }
                                 }
                             }
                         }
@@ -177,87 +186,13 @@ class History extends BaseController
                                 'date_auction_buy'          => $dateTime,
                             ];
 
-                            /*
-                            $uuid = uuid();
-                            $md5s[$md5] = [
-                                'serialize' => $serialize,
-                                'uuid'      => $uuid,
-                            ];
-
-                            $dataInsertAuctionHistory[] = [
-                                'auction_buy_id'            => $rowItem['auction_buy_id'],
-                                'item_uuid'                 => $uuid,
-                                'item_count'                => $rowItem['item_count'],
-                                'auction_price_per_unit'    => $rowItem['auction_price_per_unit'],
-                                'date_auction_buy'          => $dateTime,
-                            ];
-
-                            $dataInsertItem[] = [
-                                'uuid'              => $uuid,
-                                'md5'               => $md5,
-                                'serialize'         => $serialize,
-                                'item_name'         => $rowItem['item_name'],
-                                'item_display_name' => $rowItem['item_display_name'],
-                            ];
-
-                            if (is_array($rowItem['item_option']))
+                            if (! isset($md5s[$md5]))
                             {
-                                $keyItemOption = 1;
-                                foreach ($rowItem['item_option'] as $rowItemOption)
-                                {
-                                    $dataInsertItemOption[] = [
-                                        'item_uuid'         => $uuid,
-                                        'id'                => $keyItemOption,
-                                        'option_type'       => $rowItemOption['option_type'],
-                                        'option_sub_type'   => $rowItemOption['option_sub_type'] ?? '',
-                                        'option_value'      => $rowItemOption['option_value'],
-                                        'option_value2'     => $rowItemOption['option_value2'],
-                                        'option_desc'       => $rowItemOption['option_desc'] ?? '', // 마법가루에서 값이 null 로 날라오는 경우가 있음
-                                    ];
-
-                                    // Ex. 염색 앰플
-                                    if ($rowItemOption['option_type'] === '색상')
-                                    {
-                                        list($r, $g, $b) = explode(',', $rowItemOption['option_value']);
-                                        $dataInsertItemColorPart[$keyItem] = [
-                                            'item_uuid' => $uuid,
-                                            'a_r'       => $r,
-                                            'a_g'       => $g,
-                                            'a_b'       => $b,
-                                        ];
-                                    }
-                                    // Ex. 염색된 아이템
-                                    elseif (
-                                        $rowItemOption['option_type'] === '아이템 색상'
-                                        // 반짝이는 색상은 option_desc 에 "(반짝)" 이라고만 되어있음
-                                        && $rowItemOption['option_value']
-                                    )
-                                    {
-                                        $part = strtolower(mb_substr($rowItemOption['option_sub_type'], -1));
-                                        list($r, $g, $b) = explode(',', $rowItemOption['option_value']);
-
-                                        if (! isset($dataInsertItemColorPart[$keyItem]))
-                                        {
-                                            $dataInsertItemColorPart[$keyItem] = [
-                                                'item_uuid' => $uuid,
-                                                'a_r' => '', 'a_g' => '', 'a_b' => '',
-                                                'b_r' => '', 'b_g' => '', 'b_b' => '',
-                                                'c_r' => '', 'c_g' => '', 'c_b' => '',
-                                                'd_r' => '', 'd_g' => '', 'd_b' => '',
-                                                'e_r' => '', 'e_g' => '', 'e_b' => '',
-                                                'f_r' => '', 'f_g' => '', 'f_b' => '',
-                                            ];
-                                        }
-
-                                        $dataInsertItemColorPart[$keyItem][$part . '_r'] = $r;
-                                        $dataInsertItemColorPart[$keyItem][$part . '_g'] = $g;
-                                        $dataInsertItemColorPart[$keyItem][$part . '_b'] = $b;
-                                    }
-
-                                    $keyItemOption++;
-                                }
+                                $md5s[$md5] = [
+                                    'serialize' => $serialize,
+                                    'uuid'      => $uuid,
+                                ];
                             }
-                             */
                         }
 
                         // history date
@@ -287,7 +222,7 @@ class History extends BaseController
                 while ($nextCursor);
 
                 $db = db_connect();
-                $db->transStart();
+                $db->transException(true)->transStart();
                 if (count($dataInsertAuctionHistory) > 0)
                 {
                     $mAuctionHistory->insertBatch($dataInsertAuctionHistory);
@@ -323,7 +258,7 @@ class History extends BaseController
                 }
 
                 $mAuctionHistoryStatus
-                    ->set('date_auction_buy', empty($dateAuctionBuy) ? $eAuctionHistoryStatus->date_auction_buy->format('Y-m-d H:i:s') : $dateAuctionBuy)
+                    ->set('date_auction_buy', $dateAuctionBuy)
                     ->where('auction_item_category', $eAuctionHistoryStatus->auction_item_category)
                     ->update()
                 ;
@@ -341,7 +276,7 @@ class History extends BaseController
                     'status'    => 'f',
                 ]);
 
-                die('[' . $e->getLine() . ']' . $e->getMessage());
+                die('[' . __FILE__ . '][' . $e->getLine() . ']' . $e->getMessage() . PHP_EOL);
             }
         }
     }

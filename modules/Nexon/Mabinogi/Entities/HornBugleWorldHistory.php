@@ -25,10 +25,10 @@ class HornBugleWorldHistory extends BaseEntity
         switch ($key)
         {
             case 'server_name':
-                $uri->addQuery($cCms->searchName, 'server_name:"' . $this->server_name . '"');
+                $uri->addQuery($cCms->searchName, 'server_name =:"' . $this->server_name . '"');
                 break;
             case 'character_name':
-                $uri->addQuery($cCms->searchName, 'server_name:"' . $this->server_name . '" character_name:"' . $this->character_name . '"');
+                $uri->addQuery($cCms->searchName, 'server_name =:"' . $this->server_name . '" character_name =:"' . $this->character_name . '"');
                 break;
         }
 

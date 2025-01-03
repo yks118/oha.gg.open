@@ -20,6 +20,7 @@ class HornBugleWorldHistory extends BaseController
                 ->findAll(1)[0] ?? null
             ;
             $checkTime = is_null($eHornBugleWorldHistory) ? 0 : $eHornBugleWorldHistory->date_send->getTimestamp();
+            $checkPKs = [];
 
             try
             {
@@ -31,9 +32,19 @@ class HornBugleWorldHistory extends BaseController
                     $rowTime = strtotime($row['date_send']);
                     if ($checkTime < $rowTime)
                     {
+                        $pk = base64_encode($serverName . '_' . $rowTime . '_' . $row['character_name']);
+                        if (! isset($checkPKs[$pk]))
+                        {
+                            $checkPKs[$pk] = 0;
+                        }
+                        else
+                        {
+                            $checkPKs[$pk]++;
+                        }
+
                         $data[] = [
                             'server_name'       => $serverName,
-                            'date_send'         => date('Y-m-d H:i:s', strtotime($row['date_send'])),
+                            'date_send'         => date('Y-m-d H:i:s', $rowTime + $checkPKs[$pk]),
                             'character_name'    => $row['character_name'],
                             'message'           => $row['message'],
                         ];

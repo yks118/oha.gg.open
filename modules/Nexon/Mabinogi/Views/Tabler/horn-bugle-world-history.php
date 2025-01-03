@@ -36,7 +36,7 @@
                         ?>
             <div class="list-group-item">
                 <div class="text-truncate">
-                    <div class="text-reset d-block"><?php echo $eHornBugleWorldHistory->message; ?></div>
+                    <div class="text-reset d-block"><?php echo trim($eHornBugleWorldHistory->message); ?></div>
                     <div class="d-block text-secondary text-truncate mt-n1">
                         [<a href="<?php echo $eHornBugleWorldHistory->search('server_name'); ?>"><?php echo $eHornBugleWorldHistory->server_name; ?></a>]
                         <a href="<?php echo $eHornBugleWorldHistory->search('character_name'); ?>"><?php echo $eHornBugleWorldHistory->character_name; ?></a>
