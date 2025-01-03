@@ -90,6 +90,56 @@ if (! function_usable('array_avg'))
     }
 }
 
+if (! function_usable('array_med'))
+{
+    function array_med(array $array): int
+    {
+        sort($array);
+        $count = count($array);
+        $index = intdiv($count, 2);
+
+        if ($count % 2 !== 0)
+        {
+            $med = $array[$index];
+        }
+        else
+        {
+            $med = array_avg([$array[$index - 1], $array[$index]]);
+        }
+
+        return $med;
+    }
+}
+
+if (! function_usable('array_mod'))
+{
+    function array_mod(array $array): array
+    {
+        $arr = array_count_values($array);
+        arsort($arr);
+
+        $mod = [];
+        $count = 0;
+        foreach($arr as $key => $value)
+        {
+            if ($count === 0)
+            {
+                $count = $value;
+            }
+
+            if ($count === $value)
+            {
+                $mod[] = $key;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return $mod;
+    }
+}
+
 if (! function_usable('is_decimal'))
 {
     function is_decimal(mixed $value): bool

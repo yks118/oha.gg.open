@@ -38,6 +38,8 @@ class MetaEnchant extends BaseModel
         'convertArrayToJson',
     ];
 
+    protected array $convertArrayToJsonFields = ['available_slot_name', 'stat'];
+
     protected bool $cacheUse = true;
 
     /**
@@ -55,25 +57,5 @@ class MetaEnchant extends BaseModel
     public function findAll(?int $limit = null, int $offset = 0): array
     {
         return parent::findAll($limit, $offset);
-    }
-
-    protected function convertArrayToJson(array $data): array
-    {
-        foreach (['available_slot_name', 'stat'] as $value)
-        {
-            if (isset($data['data'][$value]))
-            {
-                if (is_array($data['data'][$value]))
-                {
-                    $data['data'][$value] = json_encode($data['data'][$value], JSON_UNESCAPED_UNICODE);
-                }
-                else
-                {
-                    $data['data'][$value] = '[]';
-                }
-            }
-        }
-
-        return $data;
     }
 }

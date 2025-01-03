@@ -1,6 +1,8 @@
 <?php
 namespace Modules\Nexon\Mabinogi\Models;
 
+use CodeIgniter\Database\ConnectionInterface;
+use CodeIgniter\Validation\ValidationInterface;
 use Modules\Core\Models\BaseModel;
 
 class Item extends BaseModel
@@ -31,6 +33,15 @@ class Item extends BaseModel
     protected bool $cacheUse = true;
 
     protected int $cacheTtl = YEAR;
+
+    public function __construct(?ConnectionInterface $db = null, ?ValidationInterface $validation = null)
+    {
+        parent::__construct($db, $validation);
+
+        $this->cacheUse = true;
+        $this->cacheTtl = YEAR;
+        $this->cacheRefresh = false;
+    }
 
     /**
      * @param mixed $id

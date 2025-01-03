@@ -321,4 +321,34 @@ class BaseModel extends Model
 
         return $data;
     }
+
+    protected array $convertArrayToJsonFields = [];
+
+    protected function convertArrayToJson(array $data): array
+    {
+        foreach ($this->convertArrayToJsonFields as $value)
+        {
+            if (isset($data['data'][$value]))
+            {
+                if (is_array($data['data'][$value]))
+                {
+                    $data['data'][$value] = json_encode($data['data'][$value], JSON_UNESCAPED_UNICODE);
+                }
+                else
+                {
+                    $data['data'][$value] = '[]';
+                }
+            }
+            // batch
+            elseif (isset($data['data'][0][$value]))
+            {
+                foreach ($data['data'] as $key => $row)
+                {
+                    $data['data'][$key] = $this->convertArrayToJson(['data' => $row])['data'];
+                }
+            }
+        }
+
+        return $data;
+    }
 }

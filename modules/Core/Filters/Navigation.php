@@ -56,6 +56,16 @@ class Navigation implements FilterInterface
                     ],
                 ],
             ],
+            [
+                'name'  => 'NCSOFT',
+                'href'  => '',
+                'child' => [
+                    [
+                        'name'  => '리니지2M',
+                        'href'  => site_to('ncsoft_lineage2m_main'),
+                    ],
+                ],
+            ],
         ]);
     }
 
