@@ -201,7 +201,7 @@
 
                                 if (isset($data['list'][$key + 1]))
                                 {
-                                    $modNext = array_mod($data['list'][$key + 1]->getDataGolds());
+                                    $modNext = array_mod($data['list'][$key + 1]->getDataGolds())[0];
                                     if ($mod > $modNext)
                                     {
                                         ?>

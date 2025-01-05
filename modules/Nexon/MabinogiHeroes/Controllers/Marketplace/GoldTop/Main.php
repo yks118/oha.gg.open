@@ -42,6 +42,7 @@ class Main extends BaseController
             ->where('date >=', $data['data']['get']['date_start'])
             ->where('date <=', $data['data']['get']['date_end'])
             ->where('type', substr($data['data']['get']['type'], 0, 1))
+            ->orderBy('date', 'DESC')
             ->findAll()
         ;
 
