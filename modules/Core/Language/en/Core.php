@@ -28,4 +28,37 @@ return [
         'ru'    => 'Russian',
         'es'    => 'Spanish',
     ],
+
+    'week'  => [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ],
+
+    'month' => [
+        '',
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ],
+
+    'season'    => [
+        'Spring',
+        'Summer',
+        'Fall',
+        'Winter',
+    ],
 ];

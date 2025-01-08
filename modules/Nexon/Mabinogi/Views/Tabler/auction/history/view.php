@@ -100,7 +100,7 @@
                 <div class="card-header">
                     <div>
                         <h3 class="card-title"><?php echo $eAuctionHistoryDate->date->format('Y-m-d'); ?></h3>
-                        <p class="card-subtitle"></p>
+                        <p class="card-subtitle"><?php echo lang('Core.week.' . $eAuctionHistoryDate->date->format('w')); ?></p>
                     </div>
                 </div>
 
@@ -194,13 +194,13 @@
                                     if ($eAuctionHistoryDate->count < $data['history']['list'][$key + 1]->count)
                                     {
                                         ?>
-                                <small class="text-success">-<?php echo number_format($data['history']['list'][$key + 1]->count - $eAuctionHistoryDate->count); ?></small>
+                                <small class="text-danger">-<?php echo number_format($data['history']['list'][$key + 1]->count - $eAuctionHistoryDate->count); ?></small>
                                         <?php
                                     }
                                     elseif ($eAuctionHistoryDate->count > $data['history']['list'][$key + 1]->count)
                                     {
                                         ?>
-                                <small class="text-danger">+<?php echo number_format($eAuctionHistoryDate->count - $data['history']['list'][$key + 1]->count); ?></small>
+                                <small class="text-success">+<?php echo number_format($eAuctionHistoryDate->count - $data['history']['list'][$key + 1]->count); ?></small>
                                         <?php
                                     }
                                 }

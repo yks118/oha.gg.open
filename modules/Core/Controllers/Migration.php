@@ -8,7 +8,7 @@ class Migration extends BaseController
         $this->thema->setLayout('');
 
         $migrations = \Config\Services::migrations();
-        $migrations->setNamespace('')->latest();
+        $migrations->setNamespace(null)->latest();
 
         $cCms = core_config_cms();
 
