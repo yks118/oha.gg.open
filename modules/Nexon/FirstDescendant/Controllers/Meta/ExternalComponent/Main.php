@@ -57,9 +57,9 @@ class Main extends BaseController
                 $data['data']['equipmentTypes'][] = $row['external_component_equipment_type'];
             }
 
-            if (! in_array($row['external_component_tier'], $data['data']['tiers']))
+            if (! in_array($row['external_component_tier_id'], $data['data']['tiers']))
             {
-                $data['data']['tiers'][] = $row['external_component_tier'];
+                $data['data']['tiers'][] = $row['external_component_tier_id'];
             }
         }
 
@@ -75,14 +75,14 @@ class Main extends BaseController
             );
         }
 
-        if (isset($data['data']['get']['external_component_tier']) && $data['data']['get']['external_component_tier'])
+        if (isset($data['data']['get']['external_component_tier_id']) && $data['data']['get']['external_component_tier_id'])
         {
-            $externalComponentTier = $data['data']['get']['external_component_tier'];
+            $externalComponentTier = $data['data']['get']['external_component_tier_id'];
             $list = array_filter(
                 $list,
                 function($row) use($externalComponentTier)
                 {
-                    return $row['external_component_tier'] === $externalComponentTier;
+                    return $row['external_component_tier_id'] === $externalComponentTier;
                 }
             );
         }

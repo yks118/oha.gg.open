@@ -146,7 +146,7 @@
                     </div>
                     <div class="col text-truncate">
                         <div class="text-reset d-block"><?php echo $module['module_name']; ?></div>
-                        <div class="d-block text-secondary text-truncate mt-n1" style="white-space: normal;"><?php echo $module['module_tier']; ?></div>
+                        <div class="d-block text-secondary text-truncate mt-n1" style="white-space: normal;"><?php echo $module['module_tier_id']; ?></div>
                     </div>
                 </div>
             </a>
@@ -174,7 +174,7 @@
                             ?>
                             <a href="<?php echo $url; ?>"><?php echo $weapon['weapon_name']; ?></a>
                         </h3>
-                        <p class="card-subtitle"><?php echo $weapon['weapon_tier'] . ' / ' . $weapon['weapon_type'] . ' / ' . $weapon['weapon_rounds_type']; ?></p>
+                        <p class="card-subtitle"><?php echo $weapon['weapon_tier_id'] . ' / ' . $weapon['weapon_type'] . ' / ' . $weapon['weapon_rounds_type']; ?></p>
                     </div>
                 </div>
             </div>
@@ -195,7 +195,7 @@
                     </div>
                     <div class="col text-truncate">
                         <div class="text-reset d-block"><?php echo $module['module_name']; ?></div>
-                        <div class="d-block text-secondary text-truncate mt-n1" style="white-space: normal;"><?php echo $module['module_tier']; ?></div>
+                        <div class="d-block text-secondary text-truncate mt-n1" style="white-space: normal;"><?php echo $module['module_tier_id']; ?></div>
                     </div>
                 </div>
             </a>

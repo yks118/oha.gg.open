@@ -52,9 +52,9 @@ class Main extends BaseController
                 $data['data']['types'][] = $row['weapon_type'];
             }
 
-            if ($row['weapon_tier'] && ! in_array($row['weapon_tier'], $data['data']['tiers']))
+            if ($row['weapon_tier_id'] && ! in_array($row['weapon_tier_id'], $data['data']['tiers']))
             {
-                $data['data']['tiers'][] = $row['weapon_tier'];
+                $data['data']['tiers'][] = $row['weapon_tier_id'];
             }
 
             if ($row['weapon_rounds_type'] && ! in_array($row['weapon_rounds_type'], $data['data']['roundsTypes']))
@@ -78,14 +78,14 @@ class Main extends BaseController
             );
         }
 
-        if (isset($data['data']['get']['weapon_tier']) && $data['data']['get']['weapon_tier'])
+        if (isset($data['data']['get']['weapon_tier_id']) && $data['data']['get']['weapon_tier_id'])
         {
-            $weaponTier = $data['data']['get']['weapon_tier'];
+            $weaponTier = $data['data']['get']['weapon_tier_id'];
             $list = array_filter(
                 $list,
                 function($row) use($weaponTier)
                 {
-                    return $row['weapon_tier'] === $weaponTier;
+                    return $row['weapon_tier_id'] === $weaponTier;
                 }
             );
         }

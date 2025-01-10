@@ -28,7 +28,7 @@
                     ?>
                 <div class="datagrid-item">
                     <div class="datagrid-title">
-                        <?php echo $rowStat['stat_type']; ?>
+                        <?php echo $rowStat['stat_id']; ?>
                         <small>Lv 1 / Lv <?php echo $rowStatEnd['level']; ?></small>
                     </div>
                     <div class="datagrid-content">
@@ -93,7 +93,7 @@
                         {
                             ?>
                         <div class="datagrid-item">
-                            <div class="datagrid-title"><?php echo $rowStatDetail['stat_type']; ?></div>
+                            <div class="datagrid-title"><?php echo $rowStatDetail['stat_id']; ?></div>
                             <div class="datagrid-content">
                                 <?php
                                 echo number_format_float($rowStatDetail['stat_value']);

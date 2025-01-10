@@ -49,9 +49,9 @@ class Main extends BaseController
         $list = nexon_first_descendant_meta_module($data['data']['get']['language_code']);
         foreach ($list as $row)
         {
-            if (! in_array($row['module_tier'], $data['data']['tiers']))
+            if (! in_array($row['module_tier_id'], $data['data']['tiers']))
             {
-                $data['data']['tiers'][] = $row['module_tier'];
+                $data['data']['tiers'][] = $row['module_tier_id'];
             }
 
             if (! in_array($row['module_socket_type'], $data['data']['socketTypes']))
@@ -79,14 +79,14 @@ class Main extends BaseController
         $data['data']['slotTypes'] = array_unique($data['data']['slotTypes']);
         sort($data['data']['slotTypes']);
 
-        if (isset($data['data']['get']['module_tier']) && $data['data']['get']['module_tier'])
+        if (isset($data['data']['get']['module_tier_id']) && $data['data']['get']['module_tier_id'])
         {
-            $moduleTier = $data['data']['get']['module_tier'];
+            $moduleTier = $data['data']['get']['module_tier_id'];
             $list = array_filter(
                 $list,
                 function($row) use($moduleTier)
                 {
-                    return $row['module_tier'] === $moduleTier;
+                    return $row['module_tier_id'] === $moduleTier;
                 }
             );
         }

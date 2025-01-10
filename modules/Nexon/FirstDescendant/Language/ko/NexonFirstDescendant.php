@@ -40,7 +40,7 @@ return [
     'external_component'                => '외장 부품',
     'external_component_level'          => '외장 부품 레벨',
     'external_component_equipment_type' => '외장 부품 착용 부위',
-    'external_component_tier'           => '외장 부품 등급',
+    'external_component_tier_id'        => '외장 부품 등급',
 
     // reward
     'level_reward'          => '난이도 보상',
@@ -51,14 +51,14 @@ return [
 
     // weapon.json
     'weapon_type'                       => '무기 유형',
-    'weapon_tier'                       => '무기 등급',
+    'weapon_tier_id'                    => '무기 등급',
     'weapon_rounds_type'                => '무기 탄환 유형',
     'weapon_perk_ability_name'          => '고유 능력 이름',
     'weapon_perk_ability_description'   => '고유 능력 설명',
 
     // module.json
     'module_type'                   => '모듈 유형',
-    'module_tier'                   => '모듈 등급',
+    'module_tier_id'                => '모듈 등급',
     'module_socket_type'            => '모듈 소켓 유형',
     'module_class'                  => '모듈 클래스',
     'available_weapon_type'         => '장착 가능 무기 유형',

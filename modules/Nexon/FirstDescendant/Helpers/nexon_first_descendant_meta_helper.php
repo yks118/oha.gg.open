@@ -27,7 +27,7 @@ if (! function_usable('nexon_first_descendant_meta_descendant'))
      *                 level: int,
      *                 stat_detail: array{
      *                     array{
-     *                         stat_type: string,
+     *                         stat_id: string,
      *                         stat_value: int,
      *                     },
      *                 },
@@ -110,7 +110,7 @@ if (! function_usable('nexon_first_descendant_meta_weapon'))
      *         weapon_id: string,
      *         image_url: string,
      *         weapon_type: string,
-     *         weapon_tier: string,
+     *         weapon_tier_id: string,
      *         weapon_rounds_type: string,
      *         base_stat: array{
      *             array{
@@ -198,7 +198,7 @@ if (! function_usable('nexon_first_descendant_meta_module'))
      *         module_id: string,
      *         image_url: string,
      *         module_type: string,
-     *         module_tier: string,
+     *         module_tier_id: string,
      *         module_socket_type: string,
      *         module_class: string,
      *         available_weapon_type: string[],
@@ -278,7 +278,7 @@ if (! function_usable('nexon_first_descendant_meta_reactor'))
      *         reactor_id: string,
      *         reactor_name: string,
      *         image_url: string,
-     *         reactor_tier: string,
+     *         reactor_tier_id: string,
      *         reactor_skill_power: array{
      *             array{
      *                 level: int,
@@ -293,7 +293,7 @@ if (! function_usable('nexon_first_descendant_meta_reactor'))
      *                 enchant_effect: array{
      *                     array{
      *                         enchant_level: int,
-     *                         stat_type: string,
+     *                         stat_id: string,
      *                         value: int,
      *                     },
      *                 },
@@ -377,7 +377,7 @@ if (! function_usable('nexon_first_descendant_meta_external_component'))
      *         external_component_name: string,
      *         image_url: string,
      *         external_component_equipment_type: string,
-     *         external_component_tier: string,
+     *         external_component_tier_id: string,
      *         base_stat: array{
      *             array{
      *                 level: int,
@@ -759,7 +759,7 @@ if (! function_usable('nexon_first_descendant_meta_mastery_rank_level_detail'))
      *
      * @return array{
      *     array{
-     *         mastery_rank_level: int,
+     *         mastery_level: int,
      *         exp_per_level: int,
      *     },
      * }
@@ -791,7 +791,7 @@ if (! function_usable('nexon_first_descendant_meta_mastery_rank_level_detail_lev
             $list = nexon_first_descendant_meta_mastery_rank_level_detail();
             foreach ($list as $row)
             {
-                $data[$row['mastery_rank_level']] = $row['exp_per_level'];
+                $data[$row['mastery_level']] = $row['exp_per_level'];
             }
             cache()->save($cacheKey, $data, DAY);
         }
@@ -974,8 +974,12 @@ if (! function_usable('nexon_first_descendant_meta_amorphous_reward'))
      *         open_reward: array{
      *             array{
      *                 reward_type: string,
-     *                 reward_group_id: string,
      *                 required_stabilizer: string,
+     *                 reward_item: array{
+     *                     meta_type: string,
+     *                     meta_id: string,
+     *                     rate: string,
+     *                 },
      *             },
      *         },
      *     },
@@ -1026,6 +1030,8 @@ if (! function_usable('nexon_first_descendant_meta_amorphous_reward_group'))
      *
      * @link https://openapi.nexon.com/ko/game/tfd/?id=21
      *
+     * @deprecated 2025.01.09 https://openapi.nexon.com/ko/support/notice/2709232/
+     *
      * @return array{
      *     array{
      *         amorphous_reward_group_id: string,
@@ -1056,6 +1062,9 @@ if (! function_usable('nexon_first_descendant_meta_amorphous_reward_group'))
 
 if (! function_usable('nexon_first_descendant_meta_amorphous_reward_group_id'))
 {
+    /**
+     * @deprecated 2025.01.09 https://openapi.nexon.com/ko/support/notice/2709232/
+     */
     function nexon_first_descendant_meta_amorphous_reward_group_id(string $id): array
     {
         $cacheKey = 'nexon_first_descendant_meta_amorphous_reward_group_id';

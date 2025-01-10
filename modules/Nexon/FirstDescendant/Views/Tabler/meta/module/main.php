@@ -30,8 +30,8 @@
             {
                 ?>
             <div class="mb-3">
-                <label class="form-label" for="module_tier"><?php echo lang('NexonFirstDescendant.module_tier'); ?></label>
-                <select class="form-select" name="module_tier" id="module_tier">
+                <label class="form-label" for="module_tier_id"><?php echo lang('NexonFirstDescendant.module_tier_id'); ?></label>
+                <select class="form-select" name="module_tier_id" id="module_tier_id">
                     <option value=""><?php echo lang('Core.select.all'); ?></option>
 
                     <?php
@@ -40,7 +40,7 @@
                         ?>
                     <option
                         value="<?php echo $tier; ?>"
-                        <?php echo set_select('module_tier', $tier, isset($data['get']['module_tier']) && $data['get']['module_tier'] === $tier); ?>
+                        <?php echo set_select('module_tier_id', $tier, isset($data['get']['module_tier_id']) && $data['get']['module_tier_id'] === $tier); ?>
                     ><?php echo $tier; ?></option>
                         <?php
                     }
@@ -220,8 +220,8 @@
                         </div>
 
                         <div class="datagrid-item">
-                            <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.module_tier'); ?></div>
-                            <div class="datagrid-content"><?php echo $row['module_tier']; ?></div>
+                            <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.module_tier_id'); ?></div>
+                            <div class="datagrid-content"><?php echo $row['module_tier_id']; ?></div>
                         </div>
 
                         <div class="datagrid-item">

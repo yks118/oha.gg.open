@@ -100,11 +100,10 @@
     </div>
 
             <?php
-            foreach ($listAmorphousReward as $rowAmorphousReward)
+            foreach ($listAmorphousReward as $key => $rowAmorphousReward)
             {
-                $listRewardGroup = nexon_first_descendant_meta_amorphous_reward_group_id($rowAmorphousReward['reward_group_id']);
                 ?>
-    <div class="card mb-3" id="amorphousReward<?php echo $valueAmorphousReward . $rowAmorphousReward['reward_group_id']; ?>">
+    <div class="card mb-3" id="amorphousReward<?php echo $valueAmorphousReward . '_' . $key; ?>">
         <div class="card-header">
             <div>
                 <h3 class="card-title">보상 구분</h3>
@@ -114,11 +113,11 @@
 
         <div class="list-group list-group-flush list-group-hoverable">
             <?php
-            foreach ($listRewardGroup as $rowRewardGroup)
+            foreach ($rowAmorphousReward['reward_item'] as $rowRewardItem)
             {
-                if ($rowRewardGroup['meta_type'] === 'consumable_material_id')
+                if ($rowRewardItem['meta_type'] === 'consumable_material_id')
                 {
-                    $rowConsumableMaterial = nexon_first_descendant_meta_consumable_material_id($rowRewardGroup['meta_id']);
+                    $rowConsumableMaterial = nexon_first_descendant_meta_consumable_material_id($rowRewardItem['meta_id']);
                     $url = site_to('nexon_first_descendant_meta_consumable_material_detail', $rowConsumableMaterial['consumable_material_id']);
                     $url .= '?' . current_url(true)->getQuery();
                     ?>
@@ -130,7 +129,7 @@
 
                     <div class="col text-truncate">
                         <div class="text-reset d-block"><?php echo $rowConsumableMaterial['consumable_material_name']; ?></div>
-                        <div class="d-block text-secondary text-truncate mt-n1"><?php echo $rowRewardGroup['rate']; ?>%</div>
+                        <div class="d-block text-secondary text-truncate mt-n1"><?php echo $rowRewardItem['rate']; ?>%</div>
                     </div>
                 </div>
             </a>
@@ -170,11 +169,7 @@
     </div>
                 <?php
             }
-            ?>
-            <?php
         }
-        ?>
-        <?php
     }
     ?>
 </section>

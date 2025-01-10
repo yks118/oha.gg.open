@@ -27,8 +27,8 @@
                 </div>
 
                 <div class="datagrid-item">
-                    <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.module_tier'); ?></div>
-                    <div class="datagrid-content"><?php echo $row['module_tier']; ?></div>
+                    <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.module_tier_id'); ?></div>
+                    <div class="datagrid-content"><?php echo $row['module_tier_id']; ?></div>
                 </div>
 
                 <div class="datagrid-item">

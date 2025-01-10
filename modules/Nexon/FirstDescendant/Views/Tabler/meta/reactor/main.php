@@ -30,8 +30,8 @@
             {
                 ?>
             <div class="mb-3">
-                <label class="form-label" for="reactor_tier"><?php echo lang('NexonFirstDescendant.reactor_tier'); ?></label>
-                <select class="form-select" name="reactor_tier" id="reactor_tier">
+                <label class="form-label" for="reactor_tier_id"><?php echo lang('NexonFirstDescendant.reactor_tier_id'); ?></label>
+                <select class="form-select" name="reactor_tier_id" id="reactor_tier_id">
                     <option value=""><?php echo lang('Core.select.all'); ?></option>
 
                     <?php
@@ -40,7 +40,7 @@
                         ?>
                     <option
                         value="<?php echo $tier ?>"
-                        <?php echo set_select('reactor_tier', $tier, isset($data['get']['reactor_tier']) && $data['get']['reactor_tier'] === $tier); ?>
+                        <?php echo set_select('reactor_tier_id', $tier, isset($data['get']['reactor_tier_id']) && $data['get']['reactor_tier_id'] === $tier); ?>
                     ><?php echo $tier; ?></option>
                         <?php
                     }
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col text-truncate">
                         <div class="text-reset d-block"><?php echo $row['reactor_name']; ?></div>
-                        <div class="d-block text-secondary text-truncate mt-n1"><?php echo $row['reactor_tier']; ?></div>
+                        <div class="d-block text-secondary text-truncate mt-n1"><?php echo $row['reactor_tier_id']; ?></div>
                     </div>
                 </div>
             </a>

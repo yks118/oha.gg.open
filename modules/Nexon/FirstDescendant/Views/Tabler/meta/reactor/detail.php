@@ -13,7 +13,7 @@
                     </div>
                     <div class="col">
                         <h3 class="card-title"><?php echo $row['reactor_name']; ?></h3>
-                        <p class="card-subtitle"><?php echo $row['reactor_tier']; ?></p>
+                        <p class="card-subtitle"><?php echo $row['reactor_tier_id']; ?></p>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 {
                     ?>
                 <div class="datagrid-item">
-                    <div class="datagrid-title">Lv. <?php echo $rowSkillPowerEnchantEffect['enchant_level'] . ' - ' . $rowSkillPowerEnchantEffect['stat_type']; ?></div>
+                    <div class="datagrid-title">Lv. <?php echo $rowSkillPowerEnchantEffect['enchant_level'] . ' - ' . $rowSkillPowerEnchantEffect['stat_id']; ?></div>
                     <div class="datagrid-content">
                         <?php echo number_format_float($row['reactor_skill_power'][0]['enchant_effect'][$keySkillPowerEnchantEffect]['value'] ?? 0); ?>
                         /
@@ -184,7 +184,7 @@
                         {
                             ?>
                         <div class="datagrid-item">
-                            <div class="datagrid-title">Lv. <?php echo $rowSkillPowerEnchantEffect['enchant_level'] . ' - ' . $rowSkillPowerEnchantEffect['stat_type']; ?></div>
+                            <div class="datagrid-title">Lv. <?php echo $rowSkillPowerEnchantEffect['enchant_level'] . ' - ' . $rowSkillPowerEnchantEffect['stat_id']; ?></div>
                             <div class="datagrid-content">
                                 <?php
                                 echo number_format_float($rowSkillPowerEnchantEffect['value']);

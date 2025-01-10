@@ -22,7 +22,7 @@
                     }
                     ?>
                 </div>
-                <div class="d-block text-secondary text-truncate mt-n1">Lv. <?php echo $row['mastery_rank_level']; ?></div>
+                <div class="d-block text-secondary text-truncate mt-n1">Lv. <?php echo $row['mastery_level']; ?></div>
             </div>
                 <?php
             }

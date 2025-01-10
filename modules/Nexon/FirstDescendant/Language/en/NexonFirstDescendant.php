@@ -40,7 +40,7 @@ return [
     'external_component'                => 'External Component',
     'external_component_level'          => 'External Component Level',
     'external_component_equipment_type' => 'External Component Equipment Type',
-    'external_component_tier'           => 'External Component Tier',
+    'external_component_tier_id'        => 'External Component Tier',
 
     // reward
     'level_reward'          => 'Level Reward',
@@ -51,14 +51,14 @@ return [
 
     // weapon.json
     'weapon_type'                       => 'Weapon Type',
-    'weapon_tier'                       => 'Weapon Tier',
+    'weapon_tier_id'                    => 'Weapon Tier',
     'weapon_rounds_type'                => 'Weapon Rounds Type',
     'weapon_perk_ability_name'          => 'Weapon Perk Ability Name',
     'weapon_perk_ability_description'   => 'Weapon Perk Ability Description',
 
     // module.json
     'module_type'                   => 'Module Type',
-    'module_tier'                   => 'Module Tier',
+    'module_tier_id'                => 'Module Tier',
     'module_socket_type'            => 'Module Socket Type',
     'module_class'                  => 'Module Class',
     'available_weapon_type'         => 'Available Weapon Type',

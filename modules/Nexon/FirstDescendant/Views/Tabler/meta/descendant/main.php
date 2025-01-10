@@ -75,7 +75,7 @@
                             ?>
                         <div class="datagrid-item">
                             <div class="datagrid-title">
-                                <?php echo $rowStat['stat_type']; ?>
+                                <?php echo $rowStat['stat_id']; ?>
                                 <small>Lv 1 / Lv <?php echo $rowStatEnd['level']; ?></small>
                             </div>
                             <div class="datagrid-content">

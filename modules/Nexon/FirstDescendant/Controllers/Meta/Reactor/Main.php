@@ -51,20 +51,20 @@ class Main extends BaseController
 
         foreach ($list as $row)
         {
-            if (! in_array($row['reactor_tier'], $data['data']['tiers']))
+            if (! in_array($row['reactor_tier_id'], $data['data']['tiers']))
             {
-                $data['data']['tiers'][] = $row['reactor_tier'];
+                $data['data']['tiers'][] = $row['reactor_tier_id'];
             }
         }
 
-        if (isset($data['data']['get']['reactor_tier']) && $data['data']['get']['reactor_tier'])
+        if (isset($data['data']['get']['reactor_tier_id']) && $data['data']['get']['reactor_tier_id'])
         {
-            $reactorTier = $data['data']['get']['reactor_tier'];
+            $reactorTier = $data['data']['get']['reactor_tier_id'];
             $list = array_filter(
                 $list,
                 function($row) use($reactorTier)
                 {
-                    return $row['reactor_tier'] === $reactorTier;
+                    return $row['reactor_tier_id'] === $reactorTier;
                 }
             );
         }

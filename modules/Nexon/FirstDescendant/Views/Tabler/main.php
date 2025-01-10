@@ -48,7 +48,7 @@
                         <small class="text-danger">/
                             <?php
                             $list = nexon_first_descendant_meta_mastery_rank_level_detail();
-                            echo $list[count($list) - 1]['mastery_rank_level'];
+                            echo $list[count($list) - 1]['mastery_level'];
                             ?>
                         </small>
                     </div>
@@ -211,7 +211,7 @@
                                     ?>
                                     <a href="<?php echo $url; ?>"><?php echo $dataWeapon['weapon_name']; ?></a>
                                 </h3>
-                                <p class="card-subtitle"><?php echo $dataWeapon['weapon_tier'] . ' / ' . $dataWeapon['weapon_type'] . ' / ' . $dataWeapon['weapon_rounds_type']; ?></p>
+                                <p class="card-subtitle"><?php echo $dataWeapon['weapon_tier_id'] . ' / ' . $dataWeapon['weapon_type'] . ' / ' . $dataWeapon['weapon_rounds_type']; ?></p>
                             </div>
                         </div>
                     </div>
@@ -340,7 +340,7 @@
                             ?>
                             <a href="<?php echo $url; ?>"><?php echo $dataReactor['reactor_name']; ?></a>
                         </h3>
-                        <p class="card-subtitle"><?php echo $dataReactor['reactor_tier']; ?></p>
+                        <p class="card-subtitle"><?php echo $dataReactor['reactor_tier_id']; ?></p>
                     </div>
                 </div>
             </div>
@@ -411,7 +411,7 @@
                                     ?>
                                     <a href="<?php echo $url; ?>"><?php echo $dataExternalComponent['external_component_name']; ?></a>
                                 </h3>
-                                <p class="card-subtitle"><?php echo $dataExternalComponent['external_component_tier'] . ' / ' . $dataExternalComponent['external_component_equipment_type']; ?></p>
+                                <p class="card-subtitle"><?php echo $dataExternalComponent['external_component_tier_id'] . ' / ' . $dataExternalComponent['external_component_equipment_type']; ?></p>
                             </div>
                         </div>
                     </div>

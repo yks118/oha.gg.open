@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="datagrid-item">
-                    <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.weapon_tier'); ?></div>
-                    <div class="datagrid-content"><?php echo $row['weapon_tier']; ?></div>
+                    <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.weapon_tier_id'); ?></div>
+                    <div class="datagrid-content"><?php echo $row['weapon_tier_id']; ?></div>
                 </div>
 
                 <div class="datagrid-item">

@@ -54,8 +54,8 @@
             {
                 ?>
             <div class="mb-3">
-                <label class="form-label" for="external_component_tier"><?php echo lang('NexonFirstDescendant.external_component_tier'); ?></label>
-                <select class="form-select" name="external_component_tier" id="external_component_tier">
+                <label class="form-label" for="external_component_tier_id"><?php echo lang('NexonFirstDescendant.external_component_tier_id'); ?></label>
+                <select class="form-select" name="external_component_tier_id" id="external_component_tier_id">
                     <option value=""><?php echo lang('Core.select.all'); ?></option>
 
                     <?php
@@ -64,7 +64,7 @@
                         ?>
                     <option
                         value="<?php echo $tier ?>"
-                        <?php echo set_select('external_component_tier', $tier, isset($data['get']['external_component_tier']) && $data['get']['external_component_tier'] === $tier); ?>
+                        <?php echo set_select('external_component_tier_id', $tier, isset($data['get']['external_component_tier_id']) && $data['get']['external_component_tier_id'] === $tier); ?>
                     ><?php echo $tier; ?></option>
                         <?php
                     }
@@ -124,8 +124,8 @@
                         </div>
 
                         <div class="datagrid-item">
-                            <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.external_component_tier'); ?></div>
-                            <div class="datagrid-content"><?php echo $row['external_component_tier']; ?></div>
+                            <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.external_component_tier_id'); ?></div>
+                            <div class="datagrid-content"><?php echo $row['external_component_tier_id']; ?></div>
                         </div>
 
                         <?php

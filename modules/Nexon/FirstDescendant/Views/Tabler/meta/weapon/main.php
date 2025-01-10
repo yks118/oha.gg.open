@@ -54,8 +54,8 @@
             {
                 ?>
             <div class="mb-3">
-                <label class="form-label" for="weapon_tier"><?php echo lang('NexonFirstDescendant.weapon_tier'); ?></label>
-                <select class="form-select" name="weapon_tier" id="weapon_tier">
+                <label class="form-label" for="weapon_tier_id"><?php echo lang('NexonFirstDescendant.weapon_tier_id'); ?></label>
+                <select class="form-select" name="weapon_tier_id" id="weapon_tier_id">
                     <option value=""><?php echo lang('Core.select.all'); ?></option>
 
                     <?php
@@ -64,7 +64,7 @@
                         ?>
                         <option
                             value="<?php echo $tier ?>"
-                            <?php echo set_select('weapon_tier', $tier, isset($data['get']['weapon_tier']) && $data['get']['weapon_tier'] === $tier); ?>
+                            <?php echo set_select('weapon_tier_id', $tier, isset($data['get']['weapon_tier_id']) && $data['get']['weapon_tier_id'] === $tier); ?>
                         ><?php echo $tier; ?></option>
                         <?php
                     }
@@ -152,8 +152,8 @@
                         </div>
 
                         <div class="datagrid-item">
-                            <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.weapon_tier'); ?></div>
-                            <div class="datagrid-content"><?php echo $row['weapon_tier']; ?></div>
+                            <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.weapon_tier_id'); ?></div>
+                            <div class="datagrid-content"><?php echo $row['weapon_tier_id']; ?></div>
                         </div>
 
                         <div class="datagrid-item">

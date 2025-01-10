@@ -30,8 +30,8 @@
                 </div>
 
                 <div class="datagrid-item">
-                    <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.external_component_tier'); ?></div>
-                    <div class="datagrid-content"><?php echo $row['external_component_tier']; ?></div>
+                    <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.external_component_tier_id'); ?></div>
+                    <div class="datagrid-content"><?php echo $row['external_component_tier_id']; ?></div>
                 </div>
 
                 <?php
