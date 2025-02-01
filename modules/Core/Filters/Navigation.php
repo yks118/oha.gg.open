@@ -51,6 +51,10 @@ class Navigation implements FilterInterface
                         'href'  => site_to('nexon_hit2_main'),
                     ],
                     [
+                        'name'  => 'SUPERVIVE',
+                        'href'  => site_to('nexon_supervive_main'),
+                    ],
+                    [
                         'name'  => 'V4',
                         'href'  => site_to('nexon_v4_main'),
                     ],
