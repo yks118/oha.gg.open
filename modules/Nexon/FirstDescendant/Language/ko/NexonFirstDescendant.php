@@ -123,4 +123,8 @@ return [
     'research'              => '연구',
     'module_recommendation' => '추천 모듈 조회',
     'fellow_level_exp'      => '조력자 레벨별 필요 경험치',
+
+    // core-type.json
+    'Add'       => '합 연산',
+    'Multiply'  => '곱 연산',
 ];

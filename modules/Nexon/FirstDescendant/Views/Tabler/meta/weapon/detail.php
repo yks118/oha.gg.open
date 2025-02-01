@@ -119,6 +119,97 @@
         }
         ?>
     </div>
+
+    <?php
+    if ($row['available_core_slot'])
+    {
+        foreach ($row['available_core_slot'] as $valueAvailableCoreSlot)
+        {
+            $rowAvailableCoreSlot = nexon_first_descendant_meta_core_slot_id($valueAvailableCoreSlot);
+            foreach ($rowAvailableCoreSlot['available_core_type_id'] as $valueAvailableCoreTypeId)
+            {
+                $rowAvailableCoreTypeId = nexon_first_descendant_meta_core_type_id($valueAvailableCoreTypeId);
+                ?>
+    <hr>
+
+    <div class="card mb-3" id="availableCoreSlot">
+        <div class="card-header">
+            <div>
+                <h3 class="card-title"><?php echo $rowAvailableCoreTypeId['core_type']; ?></h3>
+                <p class="card-subtitle"><?php echo $rowAvailableCoreTypeId['core_type_id']; ?></p>
+            </div>
+        </div>
+    </div>
+
+                <?php
+                foreach ($rowAvailableCoreTypeId['core_option'] as $rowCoreOption)
+                {
+                    ?>
+    <div class="row row-cards">
+                    <?php
+                    foreach ($rowCoreOption['detail'] as $rowCoreOptionDetail)
+                    {
+                        ?>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card mb-3">
+                        <?php
+                        if ($rowCoreOptionDetail['required_core_item']['meta_type'] === 'consumable_material_id')
+                        {
+                            $rowConsumableMaterialId = nexon_first_descendant_meta_consumable_material_id($rowCoreOptionDetail['required_core_item']['meta_id']);
+                            ?>
+                <div class="card-header">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <img class="avatar" alt="<?php echo $rowConsumableMaterialId['consumable_material_name']; ?>" src="<?php echo $rowConsumableMaterialId['image_url']; ?>">
+                            </div>
+                            <div class="col">
+                                <h3 class="card-title"><?php echo $rowConsumableMaterialId['consumable_material_name']; ?></h3>
+                                <p class="card-subtitle">Count: <?php echo $rowCoreOptionDetail['required_core_item']['count']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <?php
+                        }
+                        ?>
+
+                <div class="card-body">
+                    <div class="datagrid">
+                        <?php
+                        foreach ($rowCoreOptionDetail['available_item_option'] as $rowAvailableItemOption)
+                        {
+                            ?>
+                        <div class="datagrid-item">
+                            <div class="datagrid-title">
+                                <?php echo $rowAvailableItemOption['item_option']; ?>
+                                <small>(<?php echo lang('NexonFirstDescendant.' . $rowAvailableItemOption['option_effect']['operator_type']); ?>)</small>
+                            </div>
+                            <div class="datagrid-content">
+                                <?php echo $rowAvailableItemOption['option_effect']['min_stat_value']; ?>
+                                ~
+                                <?php echo $rowAvailableItemOption['option_effect']['max_stat_value']; ?>
+                                <small>(<?php echo $rowAvailableItemOption['rate']; ?>%)</small>
+                            </div>
+                        </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <?php
+                    }
+                    ?>
+    </div>
+                    <?php
+                }
+            }
+        }
+    }
+    ?>
+
         <?php
     }
     ?>

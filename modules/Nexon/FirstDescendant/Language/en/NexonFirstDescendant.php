@@ -123,4 +123,8 @@ return [
     'research'              => 'Research',
     'module_recommendation' => 'Module Recommendation',
     'fellow_level_exp'      => 'Fellow Level Exp',
+
+    // core-type.json
+    'Add'       => 'Add',
+    'Multiply'  => 'Multiply',
 ];

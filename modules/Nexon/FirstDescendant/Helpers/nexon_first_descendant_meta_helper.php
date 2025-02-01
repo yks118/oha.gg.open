@@ -46,7 +46,7 @@ if (! function_usable('nexon_first_descendant_meta_descendant'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_descendant(string $locale = null): array
+    function nexon_first_descendant_meta_descendant(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -68,7 +68,7 @@ if (! function_usable('nexon_first_descendant_meta_descendant'))
 
 if (! function_usable('nexon_first_descendant_meta_descendant_id'))
 {
-    function nexon_first_descendant_meta_descendant_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_descendant_id(string $id, ?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -135,7 +135,7 @@ if (! function_usable('nexon_first_descendant_meta_weapon'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_weapon(string $locale = null): array
+    function nexon_first_descendant_meta_weapon(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -214,7 +214,7 @@ if (! function_usable('nexon_first_descendant_meta_module'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_module(string $locale = null): array
+    function nexon_first_descendant_meta_module(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -236,7 +236,7 @@ if (! function_usable('nexon_first_descendant_meta_module'))
 
 if (! function_usable('nexon_first_descendant_meta_module_id'))
 {
-    function nexon_first_descendant_meta_module_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_module_id(string $id, ?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -303,7 +303,7 @@ if (! function_usable('nexon_first_descendant_meta_reactor'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_reactor(string $locale = null): string
+    function nexon_first_descendant_meta_reactor(?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -325,7 +325,7 @@ if (! function_usable('nexon_first_descendant_meta_reactor'))
 
 if (! function_usable('nexon_first_descendant_meta_reactor_id'))
 {
-    function nexon_first_descendant_meta_reactor_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_reactor_id(string $id, ?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -395,7 +395,7 @@ if (! function_usable('nexon_first_descendant_meta_external_component'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_external_component(string $locale = null): string
+    function nexon_first_descendant_meta_external_component(?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -417,7 +417,7 @@ if (! function_usable('nexon_first_descendant_meta_external_component'))
 
 if (! function_usable('nexon_first_descendant_meta_external_component_id'))
 {
-    function nexon_first_descendant_meta_external_component_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_external_component_id(string $id, ?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -484,7 +484,7 @@ if (! function_usable('nexon_first_descendant_meta_reward'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_reward(string $locale = null): string
+    function nexon_first_descendant_meta_reward(?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -522,7 +522,7 @@ if (! function_usable('nexon_first_descendant_meta_stat'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_stat(string $locale = null): array
+    function nexon_first_descendant_meta_stat(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -544,7 +544,7 @@ if (! function_usable('nexon_first_descendant_meta_stat'))
 
 if (! function_usable('nexon_first_descendant_meta_stat_id'))
 {
-    function nexon_first_descendant_meta_stat_id(string $id, string $locale = null): string
+    function nexon_first_descendant_meta_stat_id(string $id, ?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -586,7 +586,7 @@ if (! function_usable('nexon_first_descendant_meta_void_battle'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_void_battle(string $locale = null): array
+    function nexon_first_descendant_meta_void_battle(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -608,7 +608,7 @@ if (! function_usable('nexon_first_descendant_meta_void_battle'))
 
 if (! function_usable('nexon_first_descendant_meta_void_battle_id'))
 {
-    function nexon_first_descendant_meta_void_battle_id(string $id, string $locale = null): string
+    function nexon_first_descendant_meta_void_battle_id(string $id, ?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -650,7 +650,7 @@ if (! function_usable('nexon_first_descendant_meta_title'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_title(string $locale = null): array
+    function nexon_first_descendant_meta_title(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -672,7 +672,7 @@ if (! function_usable('nexon_first_descendant_meta_title'))
 
 if (! function_usable('nexon_first_descendant_meta_title_id'))
 {
-    function nexon_first_descendant_meta_title_id(string $id, string $locale = null): string
+    function nexon_first_descendant_meta_title_id(string $id, ?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -824,7 +824,7 @@ if (! function_usable('nexon_first_descendant_meta_consumable_material'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_consumable_material(string $locale = null): array
+    function nexon_first_descendant_meta_consumable_material(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -846,7 +846,7 @@ if (! function_usable('nexon_first_descendant_meta_consumable_material'))
 
 if (! function_usable('nexon_first_descendant_meta_consumable_material_id'))
 {
-    function nexon_first_descendant_meta_consumable_material_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_consumable_material_id(string $id, ?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -918,7 +918,7 @@ if (! function_usable('nexon_first_descendant_meta_research'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_research(string $locale = null): array
+    function nexon_first_descendant_meta_research(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -940,7 +940,7 @@ if (! function_usable('nexon_first_descendant_meta_research'))
 
 if (! function_usable('nexon_first_descendant_meta_research_id'))
 {
-    function nexon_first_descendant_meta_research_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_research_id(string $id, ?string $locale = null): array
     {
         $cacheKey = 'nexon_first_descendant_meta_research_' . $locale . '_id';
         $data = cache()->get($cacheKey);
@@ -1102,7 +1102,7 @@ if (! function_usable('nexon_first_descendant_meta_amorphous_open_condition_desc
      *     },
      * }
      */
-    function nexon_first_descendant_meta_amorphous_open_condition_description(string $locale = null): array
+    function nexon_first_descendant_meta_amorphous_open_condition_description(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -1124,7 +1124,7 @@ if (! function_usable('nexon_first_descendant_meta_amorphous_open_condition_desc
 
 if (! function_usable('nexon_first_descendant_meta_amorphous_open_condition_description_id'))
 {
-    function nexon_first_descendant_meta_amorphous_open_condition_description_id(string $id, string $locale = null): string
+    function nexon_first_descendant_meta_amorphous_open_condition_description_id(string $id, ?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -1166,7 +1166,7 @@ if (! function_usable('nexon_first_descendant_meta_acquisition_detail'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_acquisition_detail(string $locale = null): array
+    function nexon_first_descendant_meta_acquisition_detail(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -1188,7 +1188,7 @@ if (! function_usable('nexon_first_descendant_meta_acquisition_detail'))
 
 if (! function_usable('nexon_first_descendant_meta_acquisition_detail_id'))
 {
-    function nexon_first_descendant_meta_acquisition_detail_id(string $id, string $locale = null): string
+    function nexon_first_descendant_meta_acquisition_detail_id(string $id, ?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -1230,7 +1230,7 @@ if (! function_usable('nexon_first_descendant_meta_weapon_type'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_weapon_type(string $locale = null): array
+    function nexon_first_descendant_meta_weapon_type(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -1252,7 +1252,7 @@ if (! function_usable('nexon_first_descendant_meta_weapon_type'))
 
 if (! function_usable('nexon_first_descendant_meta_weapon_type_id'))
 {
-    function nexon_first_descendant_meta_weapon_type_id(string $id, string $locale = null): string
+    function nexon_first_descendant_meta_weapon_type_id(string $id, ?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -1307,7 +1307,7 @@ if (! function_usable('nexon_first_descendant_meta_fellow'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_fellow(string $locale = null): array
+    function nexon_first_descendant_meta_fellow(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -1329,7 +1329,7 @@ if (! function_usable('nexon_first_descendant_meta_fellow'))
 
 if (! function_usable('nexon_first_descendant_meta_fellow_id'))
 {
-    function nexon_first_descendant_meta_fellow_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_fellow_id(string $id, ?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -1404,7 +1404,7 @@ if (! function_usable('nexon_first_descendant_meta_tier'))
      *     },
      * }
      */
-    function nexon_first_descendant_meta_tier(string $locale = null): array
+    function nexon_first_descendant_meta_tier(?string $locale = null): array
     {
         if (is_null($locale))
         {
@@ -1426,7 +1426,7 @@ if (! function_usable('nexon_first_descendant_meta_tier'))
 
 if (! function_usable('nexon_first_descendant_meta_tier_id'))
 {
-    function nexon_first_descendant_meta_tier_id(string $id, string $locale = null): string
+    function nexon_first_descendant_meta_tier_id(string $id, ?string $locale = null): string
     {
         if (is_null($locale))
         {
@@ -1447,5 +1447,143 @@ if (! function_usable('nexon_first_descendant_meta_tier_id'))
         }
 
         return $data[$id] ?? $id;
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_core_slot'))
+{
+    /**
+     * nexon_first_descendant_meta_core_slot
+     *
+     * 코어 슬롯 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     * @since 2025.01.23
+     *
+     * @return array{array{
+     *     core_slot_id: string,
+     *     available_weapon: string[],
+     *     available_core_type_id: string[],
+     * }}
+     */
+    function nexon_first_descendant_meta_core_slot(): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_core_slot';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url('core-slot.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_core_slot_id'))
+{
+    function nexon_first_descendant_meta_core_slot_id(string $id): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_core_slot_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_core_slot();
+            foreach ($list as $row)
+            {
+                $data[$row['core_slot_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$id] ?? [];
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_core_type'))
+{
+    /**
+     * nexon_first_descendant_meta_core_type
+     *
+     * 코어 타입 메타데이터 정보를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     * @since 2025.01.23
+     *
+     * @param ?string $locale
+     *
+     * @return array{array{
+     *     core_type_id: string,
+     *     core_type: string,
+     *     core_option: array{array{
+     *         core_option_id: string,
+     *         detail: array{array{
+     *             core_option_grade: int,
+     *             required_core_item: array{
+     *                 meta_type: string,
+     *                 meta_id: string,
+     *                 count: int,
+     *             },
+     *         }},
+     *         available_item_option: array{array{
+     *             item_option: string,
+     *             option_type: string,
+     *             option_grade: string,
+     *             option_effect: array{
+     *                 stat_id: string,
+     *                 operator_type: string,
+     *                 min_stat_value: int,
+     *                 max_stat_value: int,
+     *             },
+     *             rate: int,
+     *         }},
+     *     }},
+     * }}
+     */
+    function nexon_first_descendant_meta_core_type(?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_core_type_' . $locale;
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url($locale . '/core-type.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_core_type_id'))
+{
+    function nexon_first_descendant_meta_core_type_id(string $id, ?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_core_type_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_core_type($locale);
+            foreach ($list as $row)
+            {
+                $data[$row['core_type_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$id] ?? [];
     }
 }
