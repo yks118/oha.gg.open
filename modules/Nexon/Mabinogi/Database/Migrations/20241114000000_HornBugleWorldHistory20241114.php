@@ -23,13 +23,18 @@ class HornBugleWorldHistory20241114 extends Migration
                     'constraint'    => 16, // 한글: 8자, 영문: 16자
                     'null'          => false,
                 ],
+                'index' => [
+                    'type'          => 'TINYINT',
+                    'constraint'    => 3,
+                    'unsigned'      => true,
+                ],
                 'message'   => [
                     'type'          => 'VARCHAR',
                     'constraint'    => 255, // 한글: 115, 영문: 230 ?
                     'null'          => false,
                 ],
             ])
-            ->addPrimaryKey(['server_name', 'date_send', 'character_name'])
+            ->addPrimaryKey(['server_name', 'date_send', 'character_name', 'index'])
             ->createTable('nexon_mabinogi_horn_bugle_world_history')
         ;
     }

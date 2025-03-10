@@ -44,8 +44,9 @@ class HornBugleWorldHistory extends BaseController
 
                         $data[] = [
                             'server_name'       => $serverName,
-                            'date_send'         => date('Y-m-d H:i:s', $rowTime + $checkPKs[$pk]),
+                            'date_send'         => date('Y-m-d H:i:s', $rowTime),
                             'character_name'    => $row['character_name'],
+                            'index'             => $checkPKs[$pk],
                             'message'           => $row['message'],
                         ];
                     }
