@@ -127,4 +127,9 @@ return [
     // core-type.json
     'Add'       => '합 연산',
     'Multiply'  => '곱 연산',
+
+    // adapt-level.json
+    'adapt_level_exp'       => '적응도 레벨별 필요 경험치',
+    'node_type'             => '노드 구분',
+    'required_tuning_point' => '필요 포인트',
 ];

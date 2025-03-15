@@ -60,7 +60,7 @@
                                     ?>
                                     <a href="<?php echo $url; ?>"><?php echo $row['descendant_name']; ?></a>
                                 </h3>
-                                <p class="card-subtitle"><?php echo $row['descendant_id']; ?></p>
+                                <p class="card-subtitle"><?php echo nexon_first_descendant_meta_descendant_group_id($row['descendant_group_id'])['descendant_group_name']; ?></p>
                             </div>
                         </div>
                     </div>

@@ -21,6 +21,7 @@ if (! function_usable('nexon_first_descendant_meta_descendant'))
      *     array{
      *         descendant_id: string,
      *         descendant_name: string,
+     *         descendant_group_id: string,
      *         descendant_image_url: string,
      *         descendant_stat: array{
      *             array{
@@ -1571,7 +1572,7 @@ if (! function_usable('nexon_first_descendant_meta_core_type_id'))
             $locale = \Config\Services::request()->getLocale();
         }
 
-        $cacheKey = 'nexon_first_descendant_meta_core_type_id';
+        $cacheKey = 'nexon_first_descendant_meta_core_type_' . $locale . '_id';
         $data = cache()->get($cacheKey);
         if (is_null($data))
         {
@@ -1580,6 +1581,270 @@ if (! function_usable('nexon_first_descendant_meta_core_type_id'))
             foreach ($list as $row)
             {
                 $data[$row['core_type_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$id] ?? [];
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_descendant_group'))
+{
+    /**
+     * nexon_first_descendant_meta_descendant_group
+     *
+     * 계승자 그룹 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     *
+     * @param ?string $locale
+     *
+     * @return array{array{
+     *     descendant_group_id: string,
+     *     descendant_group_name: string,
+     * }}
+     */
+    function nexon_first_descendant_meta_descendant_group(?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_descendant_group_' . $locale;
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url($locale . '/descendant-group.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_descendant_group_id'))
+{
+    function nexon_first_descendant_meta_descendant_group_id(string $id, ?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_descendant_group_' . $locale . '_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_descendant_group($locale);
+            foreach ($list as $row)
+            {
+                $data[$row['descendant_group_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$id] ?? [];
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_adapt_level'))
+{
+    /**
+     * nexon_first_descendant_meta_adapt_level
+     *
+     * 적응도 레벨 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     *
+     * @return array{array{
+     *     level: int,
+     *     exp_per_level: int,
+     * }}
+     */
+    function nexon_first_descendant_meta_adapt_level(): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_adapt_level';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url('adapt-level.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_arche_tuning_board_group'))
+{
+    /**
+     * nexon_first_descendant_meta_arche_tuning_board_group
+     *
+     * 아르케 조율 보드 그룹 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     *
+     * @return array{array{
+     *     arche_tuning_board_group_id: string,
+     *     descendant_group_id: string,
+     *     arche_tuning_board_id: string,
+     * }}
+     */
+    function nexon_first_descendant_meta_arche_tuning_board_group(): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_board_group';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url('arche-tuning-board-group.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_arche_tuning_board_group_descendant_group_id'))
+{
+    function nexon_first_descendant_meta_arche_tuning_board_group_descendant_group_id(string $descendantGroupId): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_board_group_descendant_group_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_arche_tuning_board_group();
+            foreach ($list as $row)
+            {
+                $data[$row['descendant_group_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$descendantGroupId] ?? [];
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_arche_tuning_board'))
+{
+    /**
+     * nexon_first_descendant_meta_arche_tuning_board
+     *
+     * 아르케 조율 보드 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     *
+     * @return array{array{
+     *     arche_tuning_board_id: string,
+     *     row_size: int,
+     *     column_size: int,
+     *     node: array{array{
+     *         node_id: string,
+     *         position_row: int,
+     *         position_column: int,
+     *     }},
+     * }}
+     */
+    function nexon_first_descendant_meta_arche_tuning_board(): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_board';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url('arche-tuning-board.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_arche_tuning_board_id'))
+{
+    function nexon_first_descendant_meta_arche_tuning_board_id(string $id): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_board_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_arche_tuning_board();
+            foreach ($list as $row)
+            {
+                $data[$row['arche_tuning_board_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$id] ?? [];
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_arche_tuning_node'))
+{
+    /**
+     * nexon_first_descendant_meta_arche_tuning_node
+     *
+     * 아르케 조율 노드 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     *
+     * @param ?string $locale
+     *
+     * @return array{array{
+     *     node_id: string,
+     *     node_name: string,
+     *     node_image_url: string,
+     *     node_type: string,
+     *     tier_id: string,
+     *     required_tuning_point: int,
+     *     node_effect: array{array{
+     *         stat_id: string,
+     *         stat_value: int,
+     *         operator_type: string,
+     *     }},
+     * }}
+     */
+    function nexon_first_descendant_meta_arche_tuning_node(?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_node_' . $locale;
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url($locale . '/arche-tuning-node.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_arche_tuning_node_id'))
+{
+    function nexon_first_descendant_meta_arche_tuning_node_id(string $id): array
+    {
+        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_node_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_arche_tuning_node();
+            foreach ($list as $row)
+            {
+                $data[$row['node_id']] = $row;
             }
             cache()->save($cacheKey, $data, DAY);
         }

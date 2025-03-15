@@ -127,4 +127,9 @@ return [
     // core-type.json
     'Add'       => 'Add',
     'Multiply'  => 'Multiply',
+
+    // adapt-level.json
+    'adapt_level_exp'       => 'Adapt Level Exp',
+    'node_type'             => 'Node Type',
+    'required_tuning_point' => 'Required Tuning Point',
 ];

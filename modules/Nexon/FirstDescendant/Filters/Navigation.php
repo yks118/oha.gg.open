@@ -75,6 +75,10 @@ class Navigation implements FilterInterface
                         'name'  => lang('NexonFirstDescendant.fellow_level_exp'),
                         'href'  => site_to('nexon_first_descendant_meta_fellow_level_exp'),
                     ],
+                    [
+                        'name'  => lang('NexonFirstDescendant.adapt_level_exp'),
+                        'href'  => site_to('nexon_first_descendant_meta_adapt_level_exp')
+                    ],
                 ],
             ],
             [
