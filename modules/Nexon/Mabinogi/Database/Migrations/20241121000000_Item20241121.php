@@ -46,6 +46,7 @@ class Item20241121 extends Migration
             ->addKey('md5') // 검색용
             ->addKey('item_name') // 검색용
             ->addKey('item_display_name') // 검색용
+            ->addKey('updated_at') // 오래된 데이터 삭제용
             ->createTable('nexon_mabinogi_item')
         ;
     }

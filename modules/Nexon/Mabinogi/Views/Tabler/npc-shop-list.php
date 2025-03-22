@@ -6,16 +6,84 @@
                 'method'        => 'get',
                 'autocomplete'  => 'off',
             ]);
-            $cCms = core_config_cms();
             ?>
 
-            <div class="mb-3">
-                <label class="form-label" for="<?php echo $cCms->searchName; ?>">검색</label>
-                <input
-                    type="text" class="form-control"
-                    name="<?php echo $cCms->searchName; ?>" id="<?php echo $cCms->searchName; ?>"
-                    value="<?php echo isset($data['get'][$cCms->searchName]) ? quotes_to_entities($data['get'][$cCms->searchName]) : ''; ?>"
-                >
+            <div class="row">
+                <?php
+                if (isset($data['serverNames']) && is_array($data['serverNames']))
+                {
+                    ?>
+                <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                        <label class="form-label" for="server_name">서버</label>
+                        <select class="form-select" name="server_name" id="server_name">
+                            <?php
+                            foreach ($data['serverNames'] as $serverName)
+                            {
+                                ?>
+                            <option
+                                value="<?php echo $serverName; ?>"
+                                <?php
+                                echo set_select(
+                                    'server_name',
+                                    $serverName,
+                                    isset($data['get']['server_name'])
+                                    && $data['get']['server_name'] === $serverName
+                                );
+                                ?>
+                            ><?php echo $serverName; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                    <?php
+                }
+                ?>
+
+                <?php
+                if (isset($data['npcNames']) && is_array($data['npcNames']))
+                {
+                    ?>
+                <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                        <label class="form-label" for="npc_name">NPC</label>
+                        <select class="form-select" name="npc_name" id="npc_name">
+                            <?php
+                            foreach ($data['npcNames'] as $npcName)
+                            {
+                                ?>
+                            <option
+                                value="<?php echo $npcName; ?>"
+                                <?php
+                                echo set_select(
+                                    'npc_name',
+                                    $npcName,
+                                    isset($data['get']['npc_name'])
+                                    && $data['get']['npc_name'] === $npcName
+                                );
+                                ?>
+                            ><?php echo $npcName; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                    <?php
+                }
+                ?>
+
+                <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                        <label class="form-label" for="channel">채널</label>
+                        <input
+                            type="number" class="form-control" min="1" name="channel" id="channel"
+                            value="<?php echo set_value('channel', $data['get']['channel'] ?? 1); ?>"
+                        >
+                    </div>
+                </div>
             </div>
 
             <div class="text-end">
@@ -26,173 +94,100 @@
         </div>
 
         <div class="card-footer">
-            Total: <?php echo number_format($data['total'] ?? 0); ?><br>
-            다음 업데이트 일시에서 5분(API 갱신 대기시간)뒤에 순차적으로 갱신이 시작됩니다.
+            <?php
+            if (! isset($data['response']))
+            {
+                ?>
+            API 갱신 시간동안은 API 오류가 발생 할 수 있습니다.
+                <?php
+            }
+            else
+            {
+                ?>
+            <div class="datagrid">
+                <div class="datagrid-item">
+                    <div class="datagrid-title">업데이트 일시</div>
+                    <div class="datagrid-content">
+                        <?php
+                        echo date(
+                            'Y-m-d H:i:s',
+                            strtotime($data['response']['date_inquire'])
+                        );
+                        ?>
+                    </div>
+                </div>
+
+                <div class="datagrid-item">
+                    <div class="datagrid-title">다음 업데이트 일시</div>
+                    <div class="datagrid-content">
+                        <?php
+                        echo date(
+                            'Y-m-d H:i:s',
+                            strtotime($data['response']['date_shop_next_update'])
+                        );
+                        ?>
+                    </div>
+                </div>
+            </div>
+                <?php
+            }
+            ?>
         </div>
     </div>
 
     <?php
-    if (isset($data['total'], $data['list']) && is_array($data['list']) && $data['total'] > 0)
+    if (isset($data['response']) && is_array($data['response']))
     {
+        $tabNames = array_column($data['response']['shop'], 'tab_name');
         ?>
-    <div class="row row-cards">
+    <ul class="nav nav-bordered mb-4" data-bs-toggle="tabs" role="tablist">
         <?php
-        foreach ($data['list'] as $eNpcShopListShopItem)
+        foreach ($tabNames as $key => $tabName)
         {
-            if ($eNpcShopListShopItem instanceof \Modules\Nexon\Mabinogi\Entities\NpcShopListShopItem)
-            {
+            ?>
+        <li class="nav-item">
+            <a
+                class="nav-link <?php echo empty($key) ? 'active' : ''; ?>"
+                href="#tab<?php echo $key; ?>"
+                data-bs-toggle="tab"
+            ><?php echo $tabName; ?></a>
+        </li>
+            <?php
+        }
+        ?>
+    </ul>
+
+    <div class="tab-content">
+        <?php
+        foreach ($data['response']['shop'] as $key => $rowShop)
+        {
+            ?>
+        <div
+            class="tab-pane <?php echo empty($key) ? 'active show' : ''; ?>"
+            id="tab<?php echo $key; ?>" role="tabpanel"
+        >
+            <div class="row row-cards">
+                <?php
+                foreach ($rowShop['item'] as $rowShopItem)
+                {
+                    ?>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <?php
+                    echo view('\Modules\Nexon\Mabinogi\Views\Tabler\template\item', [
+                        'rowItem'  => $rowShopItem,
+                    ]);
+                    ?>
+                </div>
+                    <?php
+                }
                 ?>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div>
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <img class="avatar" alt="" src="<?php echo $eNpcShopListShopItem->image_url; ?>">
-                            </div>
-                            <div class="col">
-                                <a
-                                    class="card-title"
-                                    href="<?php echo $eNpcShopListShopItem->search('item_display_name'); ?>"
-                                ><?php echo $eNpcShopListShopItem->item_display_name; ?></a>
-                                <div class="card-subtitle">
-                                    <a href="<?php echo $eNpcShopListShopItem->search('price_type'); ?>"><?php echo $eNpcShopListShopItem->price_type; ?></a>:
-                                    <?php echo number_format($eNpcShopListShopItem->price_value); ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="datagrid">
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">서버 이름</div>
-                            <a
-                                class="datagrid-content"
-                                href="<?php echo $eNpcShopListShopItem->npcShopList->search('server_name'); ?>"
-                            ><?php echo $eNpcShopListShopItem->npcShopList->server_name; ?></a>
-                        </div>
-
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">채널 번호</div>
-                            <a
-                                class="datagrid-content"
-                                href="<?php echo $eNpcShopListShopItem->npcShopList->search('channel'); ?>"
-                            ><?php echo $eNpcShopListShopItem->npcShopList->channel; ?></a>
-                        </div>
-
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">NPC 이름</div>
-                            <a
-                                class="datagrid-content"
-                                href="<?php echo $eNpcShopListShopItem->npcShopList->search('npc_name'); ?>"
-                            ><?php echo $eNpcShopListShopItem->npcShopList->npc_name; ?></a>
-                        </div>
-
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">탭 이름</div>
-                            <div class="datagrid-content"><?php echo $eNpcShopListShopItem->tab_name; ?></div>
-                        </div>
-
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">묶음 수량</div>
-                            <div class="datagrid-content"><?php echo $eNpcShopListShopItem->item_count; ?></div>
-                        </div>
-
-                        <?php
-                        if ($eNpcShopListShopItem->limit_type && $eNpcShopListShopItem->limit_value)
-                        {
-                            ?>
-                        <div class="datagrid-item">
-                            <div class="datagrid-title"><?php echo $eNpcShopListShopItem->limit_type; ?></div>
-                            <div class="datagrid-content"><?php echo number_format($eNpcShopListShopItem->limit_value); ?></div>
-                        </div>
-                            <?php
-                        }
-                        ?>
-
-                        <?php
-                        foreach ($eNpcShopListShopItem->option as $eNpcShopListShopItemOption)
-                        {
-                            ?>
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">
-                                <?php
-                                echo trim(
-                                    $eNpcShopListShopItemOption->option_type
-                                    . ' '
-                                    . $eNpcShopListShopItemOption->option_sub_type
-                                );
-                                ?>
-                            </div>
-                            <div class="datagrid-content">
-                                <?php
-                                if ($eNpcShopListShopItemOption->isColorPart())
-                                {
-                                    ?>
-                                <span class="avatar avatar-xs me-2 rounded" style="background-color: rgb(<?php echo $eNpcShopListShopItemOption->option_value; ?>);"></span>
-                                <a href="<?php echo $eNpcShopListShopItemOption->search(); ?>"><?php echo $eNpcShopListShopItemOption->option_value; ?></a>
-                                    <?php
-                                    if ($eNpcShopListShopItemOption->dyeColor)
-                                    {
-                                        ?>
-                                <small><?php echo $eNpcShopListShopItemOption->dyeColor->name; ?></small>
-                                        <?php
-                                    }
-                                }
-                                else
-                                {
-                                    ?>
-                                <a
-                                    href="<?php echo $eNpcShopListShopItemOption->search(); ?>"
-                                ><?php echo trim($eNpcShopListShopItemOption->option_value . ' / ' . $eNpcShopListShopItemOption->option_value2, ' /0'); ?></a>
-                                    <?php
-                                }
-                                ?>
-                            </div>
-                        </div>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-
-                <div class="card-footer">
-                    <div class="datagrid">
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">업데이트 일시</div>
-                            <div class="datagrid-content"><?php echo $eNpcShopListShopItem->npcShopList->date_inquire->format('Y-m-d H:i:s'); ?></div>
-                        </div>
-
-                        <div class="datagrid-item">
-                            <div class="datagrid-title">다음 업데이트 일시</div>
-                            <div class="datagrid-content">
-                                <?php
-                                if ($eNpcShopListShopItem->npcShopList->date_shop_next_update->getTimestamp() < time())
-                                {
-                                    ?>
-                                <span class="text-danger"><?php echo $eNpcShopListShopItem->npcShopList->date_shop_next_update->format('Y-m-d H:i:s'); ?></span>
-                                    <?php
-                                }
-                                else
-                                {
-                                    echo $eNpcShopListShopItem->npcShopList->date_shop_next_update->format('Y-m-d H:i:s');
-                                }
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-                <?php
-            }
+            <?php
         }
         ?>
     </div>
         <?php
     }
     ?>
-
-    <?php echo $data['pagination'] ?? ''; ?>
 </section>

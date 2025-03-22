@@ -52,114 +52,84 @@
         </div>
 
         <?php
-        if (isset($data['stats']))
+        if (isset($data['commission'], $data['price']))
         {
             ?>
-        <div class="card-footer"><?php echo number_format($data['get']['price']); ?> Gold</div>
+        <div class="card-footer">
+            <div class="datagrid">
+                <div class="datagrid-item">
+                    <div class="datagrid-title">판매 수수료</div>
+                    <div class="datagrid-content"><?php echo number_format($data['commission']); ?> Gold</div>
+                </div>
+
+                <div class="datagrid-item">
+                    <div class="datagrid-title">최종 가격</div>
+                    <div class="datagrid-content">
+                        <span
+                            class="<?php echo $data['recommend'] === $data['price'] ? 'text-success' : 'text-danger';  ?>"
+                        ><?php echo number_format($data['price']); ?> Gold</span>
+                    </div>
+                </div>
+            </div>
+        </div>
             <?php
         }
         ?>
     </div>
 
     <?php
-    if (isset($data['stats']))
+    if (isset($data['items']) && is_array($data['items']))
     {
         ?>
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="datagrid">
-                <div class="datagrid-item">
-                    <div class="datagrid-title">판매 수수료(%)</div>
-                    <div class="datagrid-content"><?php echo $data['stats']['default']['percent']; ?> %</div>
-                </div>
-
-                <div class="datagrid-item">
-                    <div class="datagrid-title">판매 수수료(Gold)</div>
-                    <div class="datagrid-content"><?php echo number_format($data['stats']['default']['commission']); ?> Gold</div>
-                </div>
-
-                <div class="datagrid-item">
-                    <div class="datagrid-title">수령 금액(Gold)</div>
-                    <div class="datagrid-content"><?php echo number_format($data['stats']['default']['price']); ?> Gold</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row row-cards">
         <?php
-
-        foreach ($data['stats']['coupon'] as $row)
+        foreach ($data['items'] as $rowItem)
         {
             ?>
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="datagrid">
-                    <div class="datagrid-item">
-                        <div class="datagrid-title">수수료 할인 쿠폰(%)</div>
-                        <div class="datagrid-content"><?php echo $row['percent']; ?> %</div>
-                    </div>
-
-                    <div class="datagrid-item">
-                        <div class="datagrid-title">할인 적용된 판매 수수료(Gold)</div>
-                        <div class="datagrid-content"><?php echo number_format($row['commission']); ?> Gold</div>
-                    </div>
-
-                    <div class="datagrid-item">
-                        <div class="datagrid-title">수령 금액(Gold)</div>
-                        <div class="datagrid-content"><?php echo number_format($row['price']); ?> Gold</div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title"><?php echo $rowItem['item_name']; ?></div>
+                        <div class="card-subtitle"><?php echo number_format($rowItem['min']); ?> Gold</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card-footer">
-                <div class="datagrid">
-                    <?php
-                    $arrStats = [
-                        'min'   => '최소',
-                        'avg'   => '평균',
-                        'max'   => '최대',
-                    ];
-                    foreach ($arrStats as $key => $value)
-                    {
-                        $price = $row['stats'][$key . '_price'];
-                        ?>
-                    <div class="datagrid-item">
-                        <div class="datagrid-title"><?php echo $value; ?> 가격</div>
-                        <div class="datagrid-content">
-                            <?php echo number_format($row['stats'][$key]); ?> Gold
-
-                            <?php
-                            if ($price < 0)
-                            {
-                                ?>
-                            <small class="text-danger"><?php echo number_format($price); ?> Gold</small>
-                                <?php
-                            }
-                            else
-                            {
-                                ?>
-                            <small class="text-success">+<?php echo number_format($price); ?> Gold</small>
-                                <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                        <?php
-                    }
+                <?php
+                if (isset($data['commission']))
+                {
                     ?>
+                <div class="card-body">
+                    <div class="datagrid">
+                        <div class="datagrid-item">
+                            <div class="datagrid-title">판매 수수료 + 쿠폰 가격</div>
+                            <div class="datagrid-content">
+                                <?php
+                                echo number_format($rowItem['commission']);
+                                ?> Gold
+                            </div>
+                        </div>
 
-                    <div class="datagrid-item">
-                        <div class="datagrid-title">남은 수량</div>
-                        <div class="datagrid-content">
-                            <?php echo number_format($row['stats']['count_sum']); ?> 개
-                            /
-                            <?php echo number_format($row['stats']['count']); ?> 행
+                        <div class="datagrid-item">
+                            <div class="datagrid-title">최종 가격</div>
+                            <div class="datagrid-content">
+                                <span
+                                    class="<?php echo $data['recommend'] === $rowItem['price'] ? 'text-success' : 'text-danger'; ?>"
+                                ><?php echo number_format($rowItem['price']); ?> Gold</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                    <?php
+                }
+                ?>
             </div>
         </div>
             <?php
         }
+        ?>
+    </div>
+        <?php
     }
     ?>
 </section>

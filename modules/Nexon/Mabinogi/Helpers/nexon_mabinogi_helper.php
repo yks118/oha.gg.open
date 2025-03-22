@@ -151,3 +151,51 @@ if (! function_usable('nexon_mabinogi_delete_item'))
         $db->transComplete();
     }
 }
+
+if (! function_usable('nexon_mabinogi_sales_commission_api'))
+{
+    /**
+     * @throws Exception
+     */
+    function nexon_mabinogi_sales_commission_api(): array
+    {
+        $cacheKey = 'sales_commission_api';
+        $items = cache()->get($cacheKey);
+        if (is_null($items))
+        {
+            $api = nexon_mabinogi_services_api();
+            $response = $api->getAuctionKeywordSearch('경매장 수수료,할인 쿠폰');
+
+            $itemNames = array_column($response['auction_item'], 'item_name');
+            $itemNames = array_unique($itemNames);
+            $itemNames = array_diff($itemNames, ['경매장 수수료 100% 할인 쿠폰']);
+            sort($itemNames);
+            $itemNames[] = '경매장 수수료 100% 할인 쿠폰';
+
+            $items = array_map(
+                function ($itemName)
+                {
+                    return [
+                        'item_name' => $itemName,
+                        'min' => 0,
+                    ];
+                },
+                $itemNames
+            );
+
+            $itemNames = array_flip($itemNames);
+            foreach ($response['auction_item'] as $rowItem)
+            {
+                $min = $items[$itemNames[$rowItem['item_name']]]['min'];
+                $items[$itemNames[$rowItem['item_name']]]['min'] = empty($min)
+                    ? $rowItem['auction_price_per_unit']
+                    : min($min, $rowItem['auction_price_per_unit'])
+                ;
+            }
+
+            cache()->save($cacheKey, $items, MINUTE);
+        }
+
+        return $items;
+    }
+}

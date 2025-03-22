@@ -56,14 +56,12 @@ class History extends BaseController
 
         try
         {
-            /*
             $mAuctionHistoryStatus
                 ->set('status', 'f')
                 ->where('status !=', 'f')
                 ->where('updated_at <=', date('Y-m-d H:i:s', strtotime('-10 minutes')))
                 ->update()
             ;
-             */
 
             $mAuctionHistoryStatus
                 ->set('status', 'w')
@@ -138,10 +136,7 @@ class History extends BaseController
                         }
                         else
                         {
-                            $list = $mItem
-                                ->where('md5', $md5)
-                                ->findAll()
-                            ;
+                            $list = $mItem->md5FindAll($md5);
                             foreach ($list as $eItem)
                             {
                                 $md5s[$md5] = [
@@ -255,6 +250,11 @@ class History extends BaseController
                     {
                         $mItemColorPart->insertBatch($dataInsertItemColorPart);
                     }
+                }
+
+                if (count($md5s) > 0)
+                {
+                    $mItem->builder()->upsertBatch($md5s);
                 }
 
                 $mAuctionHistoryStatus

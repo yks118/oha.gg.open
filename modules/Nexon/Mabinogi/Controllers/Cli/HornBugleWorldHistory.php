@@ -11,28 +11,38 @@ class HornBugleWorldHistory extends BaseController
         $cApi = nexon_mabinogi_config_api();
         $mHornBugleWorldHistory = model(\Modules\Nexon\Mabinogi\Models\HornBugleWorldHistory::class);
 
+        $serverCheckTimes = [];
+        $list = $mHornBugleWorldHistory
+            ->where('date_send >=', date('Y-m-d H:i:s', strtotime('-1 hour')))
+            ->groupBy('server_name')
+            ->findAll()
+        ;
+        foreach ($list as $eHornBugleWorldHistory)
+        {
+            $serverCheckTimes[$eHornBugleWorldHistory->server_name] = $eHornBugleWorldHistory->date_send->getTimestamp();
+        }
+
+        $data = [];
         $serverNames = $cApi->serverNames;
         foreach ($serverNames as $serverName)
         {
-            $eHornBugleWorldHistory = $mHornBugleWorldHistory
-                ->where('server_name', $serverName)
-                ->orderBy('date_send', 'DESC')
-                ->findAll(1)[0] ?? null
-            ;
-            $checkTime = is_null($eHornBugleWorldHistory) ? 0 : $eHornBugleWorldHistory->date_send->getTimestamp();
+            $checkTime = $serverCheckTimes[$serverName] ?? 0;
             $checkPKs = [];
 
             try
             {
                 $response = $api->getHornBugleWorld($serverName);
 
-                $data = [];
                 foreach ($response['horn_bugle_world_history'] as $row)
                 {
                     $rowTime = strtotime($row['date_send']);
                     if ($checkTime < $rowTime)
                     {
-                        $pk = base64_encode($serverName . '_' . $rowTime . '_' . $row['character_name']);
+                        $pk = base64_encode(
+                            $serverName
+                            . '_' . $rowTime
+                            . '_' . $row['character_name']
+                        );
                         if (! isset($checkPKs[$pk]))
                         {
                             $checkPKs[$pk] = 0;
@@ -51,16 +61,22 @@ class HornBugleWorldHistory extends BaseController
                         ];
                     }
                 }
-
-                if (count($data) > 0)
-                {
-                    $mHornBugleWorldHistory->insertBatch($data);
-                }
             }
             catch (\Exception $e)
             {
+                print_r($response);
                 die($e->getMessage());
             }
+        }
+
+        if (count($data) > 0)
+        {
+            try
+            {
+                $mHornBugleWorldHistory->insertBatch($data);
+            }
+            catch (\ReflectionException $e)
+            {}
         }
     }
 }

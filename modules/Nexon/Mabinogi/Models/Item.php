@@ -59,4 +59,17 @@ class Item extends BaseModel
     {
         return parent::findAll($limit, $offset);
     }
+
+    /**
+     * @param string $md5
+     * @return \Modules\Nexon\Mabinogi\Entities\Item[]|array
+     */
+    public function md5FindAll(string $md5): array
+    {
+        $this
+            ->where('md5', $md5)
+            ->where('uuid !=', '')
+        ;
+        return $this->findAll();
+    }
 }
