@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Account\Config;
+namespace Modules\Core\Config;
 
 use CodeIgniter\Events\Events;
 

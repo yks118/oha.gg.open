@@ -165,4 +165,10 @@ abstract class BaseController extends Controller
     {
         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
     }
+
+    protected function cachePage(int $time): void
+    {
+        $time = is_prod() ? $time : 0;
+        parent::cachePage($time);
+    }
 }

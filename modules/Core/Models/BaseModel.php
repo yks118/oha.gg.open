@@ -195,7 +195,7 @@ class BaseModel extends Model
         return $this->cachePrefix . $this->table . '_' . md5($this->builder()->getCompiledSelect(false)) . '_' . $suffix;
     }
 
-    public function setCacheTtl(int $ttl = null, bool $refresh = false): self
+    public function setCacheTtl(?int $ttl = null, bool $refresh = false): self
     {
         if (is_null($ttl))
         {

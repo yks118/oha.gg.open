@@ -15,7 +15,7 @@ class Navigation
         return $this;
     }
 
-    public function add(array $navigation, int $key = null): self
+    public function add(array $navigation): self
     {
         $this->navigation[] = $navigation;
         return $this;

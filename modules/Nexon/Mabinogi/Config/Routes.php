@@ -49,7 +49,6 @@ $routes->group(
             ],
             function (RouteCollection $routes)
             {
-                $routes->cli('npc-shop-list/(:segment)', 'NpcShopList::index/$1');
                 $routes->cli('horn-bugle-world-history', 'HornBugleWorldHistory::index');
 
                 $routes->group(
@@ -59,10 +58,11 @@ $routes->group(
                     ],
                     function (RouteCollection $routes)
                     {
-                        $routes->cli('list', 'Lists::index');
                         $routes->cli('history', 'History::index');
                     }
                 );
+
+                $routes->cli('delete', 'Delete::index');
             }
         );
     }

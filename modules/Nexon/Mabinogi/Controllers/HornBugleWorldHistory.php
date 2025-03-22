@@ -30,7 +30,7 @@ class HornBugleWorldHistory extends BaseController
         }
 
         $mHornBugleWorldHistory
-            ->where('date_send >=', '0000-00-00 00:00:00')
+            ->where('date_send >=', date('Y-m-d H:i:s', strtotime('-7 days')))
             ->orderBy('date_send', 'DESC')
             ->orderBy('server_name', 'ASC')
             ->orderBy('character_name', 'ASC')

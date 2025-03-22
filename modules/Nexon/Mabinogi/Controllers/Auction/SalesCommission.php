@@ -18,70 +18,37 @@ class SalesCommission extends BaseController
             ],
         ];
 
-        if (isset($data['data']['get']['price']) && $data['data']['get']['price'])
+        try
+        {
+            $data['data']['items'] = nexon_mabinogi_sales_commission_api();
+        }
+        catch (\Exception $e)
+        {
+            $data['message'] = $e->getMessage();
+            return $this->error($data);
+        }
+
+        if (isset($data['data']['get']['price'], $data['data']['get']['percent']))
         {
             $price = (int) $data['data']['get']['price'];
             $percent = (int) $data['data']['get']['percent'];
-            $data['data']['stats'] = [
-                'default'   => [
-                    'percent'       => $percent,
-                    'commission'    => $price * $percent / 100,
-                    'price'         => $price * (100 - $percent) / 100,
-                ],
-            ];
-
-            $cApi = nexon_mabinogi_config_api();
-            foreach ($cApi->auctionSaleCommissionCoupon as $coupon)
+            if ($price > 0 && $percent > 0)
             {
-                $commission = $data['data']['stats']['default']['commission'] * (100 - $coupon) / 100;
-                $data['data']['stats']['coupon'][$coupon] = [
-                    'percent'       => $coupon,
-                    'commission'    => $commission,
-                    'price'         => $price - $commission,
+                $data['data']['commission'] = $price * $percent / 100;
+                $data['data']['price'] = $price - $data['data']['commission'];
+                $data['data']['recommend'] = $data['data']['price'];
 
-                    'stats' => [
-                        'min'   => 0,
-                        'avg'   => 0,
-                        'max'   => 0,
+                foreach ($data['data']['items'] as $key => $rowItem)
+                {
+                    $min = $rowItem['min'];
+                    $percent = preg_replace('/[^0-9]+/', '', $rowItem['item_name']);
 
-                        'count'     => 0,
-                        'count_sum' => 0,
-                    ],
-                ];
-            }
+                    $commission = ($data['data']['commission'] * (100 - $percent) / 100) + $min;
+                    $data['data']['items'][$key]['commission'] = $commission;
+                    $data['data']['items'][$key]['price'] = $price - $commission;
 
-            $mAuctionList = model(\Modules\Nexon\Mabinogi\Models\AuctionList::class);
-            $list = $mAuctionList
-                ->select('nexon_mabinogi_item.item_name')
-                ->selectMin('nexon_mabinogi_auction_list.auction_price_per_unit', 'min')
-                ->selectAvg('nexon_mabinogi_auction_list.auction_price_per_unit', 'avg')
-                ->selectMax('nexon_mabinogi_auction_list.auction_price_per_unit', 'max')
-                ->selectCount('*', 'count')
-                ->selectSum('nexon_mabinogi_auction_list.item_count', 'count_sum')
-                ->join('nexon_mabinogi_item', 'nexon_mabinogi_auction_list.item_uuid = nexon_mabinogi_item.uuid')
-                ->like('nexon_mabinogi_item.item_name', '경매장 수수료 % 할인 쿠폰', 'none')
-                ->groupBy('nexon_mabinogi_item.item_name')
-                ->builder()
-                ->get()
-                ->getResultArray()
-            ;
-            foreach ($list as $row)
-            {
-                $avg = (int) $row['avg'];
-                $couponPercent = str_replace(['경매장 수수료 ', '% 할인 쿠폰'], '', $row['item_name']);
-                $data['data']['stats']['coupon'][$couponPercent]['stats'] = [
-                    'min'       => $row['min'],
-                    'min_price' => $data['data']['stats']['coupon'][$couponPercent]['price'] - $row['min'],
-
-                    'avg'       => $avg,
-                    'avg_price' => $data['data']['stats']['coupon'][$couponPercent]['price'] - $avg,
-
-                    'max'       => $row['max'],
-                    'max_price' => $data['data']['stats']['coupon'][$couponPercent]['price'] - $row['max'],
-
-                    'count'     => $row['count'],
-                    'count_sum' => $row['count_sum'],
-                ];
+                    $data['data']['recommend'] = max($data['data']['recommend'], $data['data']['items'][$key]['price']);
+                }
             }
         }
 

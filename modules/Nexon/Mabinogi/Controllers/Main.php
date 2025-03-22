@@ -13,14 +13,15 @@ class Main extends BaseController
             'data'  => [],
         ];
 
-        $mAuctionListStatus = model(\Modules\Nexon\Mabinogi\Models\AuctionListStatus::class);
-        $data['data']['listAuctionListStatus'] = $mAuctionListStatus->findAll();
-
         $mAuctionHistoryStatus = model(\Modules\Nexon\Mabinogi\Models\AuctionHistoryStatus::class);
         $data['data']['listAuctionHistoryStatus'] = $mAuctionHistoryStatus->findAll();
 
-        $mNpcShopList = model(\Modules\Nexon\Mabinogi\Models\NpcShopList::class);
-        $data['data']['eNpcShopList'] = $mNpcShopList->findAll()[0] ?? null;
+        try
+        {
+            $data['data']['salesCommission'] = nexon_mabinogi_sales_commission_api();
+        }
+        catch (\Exception $e)
+        {}
 
         $this->cachePage(MINUTE);
         return $this->render($data);

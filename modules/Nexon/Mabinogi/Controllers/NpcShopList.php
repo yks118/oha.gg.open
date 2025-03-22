@@ -10,23 +10,49 @@ class NpcShopList extends BaseController
         $this->navigation->setNowHref(site_to('nexon_mabinogi_npc_shop_list'));
         $this->html->addTitle('NPC 상점 조회');
 
+        $cacheTime = MINUTE;
+        $cApi = nexon_mabinogi_config_api();
         $data = [
             'data'  => [
-                'get'   => $this->request->getGet(),
+                'get'           => $this->request->getGet(),
+                'serverNames'   => $cApi->serverNames,
+                'npcNames'      => $cApi->npcNames,
             ],
         ];
 
-        $mNpcShopListShopItem = model(\Modules\Nexon\Mabinogi\Models\NpcShopListShopItem::class);
-        if (isset($data['data']['get']['keyword']) && $data['data']['get']['keyword'])
+        if (
+            isset(
+                $data['data']['get']['server_name'],
+                $data['data']['get']['npc_name'],
+                $data['data']['get']['channel']
+            )
+        )
         {
-            $mNpcShopListShopItem->search($data['data']['get']['keyword']);
+            try
+            {
+                $api = nexon_mabinogi_services_api();
+                $data['data']['response'] = $api->getNpcShopList(
+                    $data['data']['get']['npc_name'],
+                    $data['data']['get']['server_name'],
+                    $data['data']['get']['channel']
+                );
+
+                $nowTime = time();
+                $nextUpdateTime = strtotime($data['data']['response']['date_shop_next_update']);
+                if ($nextUpdateTime > $nowTime)
+                {
+                    $cacheTime = $nextUpdateTime - $nowTime;
+                }
+            }
+            catch (\Exception $e)
+            {
+                $data['message']  = 'API 오류가 발생했습니다. 잠시후 다시 시도해주세요.' . PHP_EOL;
+                $data['message'] .= $e->getMessage() . PHP_EOL;
+                return $this->error($data);
+            }
         }
 
-        $data['data']['list']       = $mNpcShopListShopItem->paginate(12);
-        $data['data']['pagination'] = $mNpcShopListShopItem->pager->links(template: 'thema');
-        $data['data']['total']      = $mNpcShopListShopItem->pager->getTotal();
-
-        $this->cachePage(MINUTE);
+        $this->cachePage($cacheTime);
         return $this->render($data);
     }
 }
