@@ -64,7 +64,6 @@ class HornBugleWorldHistory extends BaseController
             }
             catch (\Exception $e)
             {
-                print_r($response);
                 die($e->getMessage());
             }
         }
