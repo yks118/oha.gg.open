@@ -35,6 +35,10 @@ class Navigation implements FilterInterface
                         'href'  => site_to('nexon_baram_y_main'),
                     ],
                     [
+                        'name'  => '서든어택',
+                        'href'  => site_to('nexon_sudden_attack_main'),
+                    ],
+                    [
                         'name'  => '카트라이더 러쉬플러스',
                         'href'  => site_to('nexon_kart_rider_rush_plus_main'),
                     ],
