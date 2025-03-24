@@ -38,11 +38,8 @@ class HornBugleWorldHistory extends BaseController
                     $rowTime = strtotime($row['date_send']);
                     if ($checkTime < $rowTime)
                     {
-                        $pk = base64_encode(
-                            $serverName
-                            . '_' . $rowTime
-                            . '_' . $row['character_name']
-                        );
+                        $dateSend = date('Y-m-d H:i:s', $rowTime);
+                        $pk = $serverName . '_' . $dateSend . '_' . $row['character_name'];
                         if (! isset($checkPKs[$pk]))
                         {
                             $checkPKs[$pk] = 0;
@@ -54,7 +51,7 @@ class HornBugleWorldHistory extends BaseController
 
                         $data[] = [
                             'server_name'       => $serverName,
-                            'date_send'         => date('Y-m-d H:i:s', $rowTime),
+                            'date_send'         => $dateSend,
                             'character_name'    => $row['character_name'],
                             'index'             => $checkPKs[$pk],
                             'message'           => $row['message'],
