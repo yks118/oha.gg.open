@@ -31,6 +31,14 @@ class Main extends BaseController
                     $data['data']['response']['weapon']             = $api->getUserWeapon($ouid, $locale)['weapon'] ?? null;
                     $data['data']['response']['reactor']            = $api->getUserReactor($ouid, $locale);
                     $data['data']['response']['externalComponent']  = $api->getUserExternalComponent($ouid, $locale)['external_component'] ?? null;
+
+                    $descendantId = $data['data']['response']['descendant']['descendant_id'];
+                    $row = nexon_first_descendant_meta_descendant_id($descendantId);
+                    $descendantGroupId = $row['descendant_group_id'];
+                    $data['data']['response']['archeTuning'] = $api->getUserArcheTuning(
+                        $ouid,
+                        $descendantGroupId
+                    ) ?? null;
                 }
                 else
                 {

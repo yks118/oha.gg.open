@@ -265,6 +265,53 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
     }
 
     /**
+     * getUserArcheTuning
+     *
+     * 아르케 조율 정보를 조회합니다.
+     * 계승자 그룹별로 활성화한 노드와 해당 노드의 좌표를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=20
+     *
+     * @since 2025.03.27
+     *
+     * @param string $ouid
+     * @param string $descendantGroupId
+     *
+     * @return array{
+     *     ouid: string,
+     *     descendant_group_id: string,
+     *     arche_tuning_board_group_id: string,
+     *     arche_tuning: array{array{
+     *         slot_id: string,
+     *         arche_tuning_board: array{array{
+     *             arche_tuning_board_id: string,
+     *             node: array{array{
+     *                 node_id: string,
+     *                 position_row: string,
+     *                 position_column: string,
+     *             }},
+     *         }},
+     *     }},
+     * }
+     *
+     * @throws Exception
+     */
+    public function getUserArcheTuning(string $ouid, string $descendantGroupId): array
+    {
+        $url = 'user/arche-tuning?ouid=' . rawurlencode($ouid) . '&descendant_group_id=' . $descendantGroupId;
+        $response = $this->client->request('GET', $url);
+
+        $statusCode = $response->getStatusCode();
+        $data = json_decode($response->getBody(), true);
+        if ($statusCode === 200)
+        {
+            return $data;
+        }
+
+        $this->error($data, $statusCode);
+    }
+
+    /**
      * getRecommendationModule
      *
      * 사용자에게 적합한 모듈을 추천합니다.

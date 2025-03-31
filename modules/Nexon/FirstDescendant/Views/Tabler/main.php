@@ -450,6 +450,19 @@
     </div>
             <?php
         }
+        ?>
+    <hr>
+        <?php
+        if (isset($data['response']['archeTuning']) && is_array($data['response']['archeTuning']))
+        {
+            $descendantId = $data['response']['descendant']['descendant_id'];
+            echo view('\Modules\Nexon\FirstDescendant\Views\Tabler\template\arche-tuning', [
+                'data'  => [
+                    'descendantId'  => $descendantId,
+                    'archeTuning'   => $data['response']['archeTuning'],
+                ],
+            ]);
+        }
     }
     ?>
 </section>

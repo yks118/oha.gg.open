@@ -158,7 +158,7 @@ if (! function_usable('nexon_first_descendant_meta_weapon'))
 
 if (! function_usable('nexon_first_descendant_meta_weapon_id'))
 {
-    function nexon_first_descendant_meta_weapon_id(string $id, string $locale = null): array
+    function nexon_first_descendant_meta_weapon_id(string $id, ?string $locale = null): array
     {
         if (is_null($locale))
         {
