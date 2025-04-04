@@ -101,41 +101,29 @@ class AuctionHistory extends BaseModel
             }
 
             $mOption = model(\Modules\Nexon\Mabinogi\Models\ItemOption::class);
+            list($type, $subType, $value, $value2) = explode(':', $matches['value']);
+            if ($type)
+            {
+                $mOption->where('option_type', $type);
+            }
+
+            if ($subType)
+            {
+                $mOption->where('option_sub_type', $subType);
+            }
+
+            if ($value)
+            {
+                $mOption->where('option_value' . $matches['eq'], $value);
+            }
+
+            if ($value2)
+            {
+                $mOption->where('option_value2' . $matches['eq'], $value2);
+            }
+            $itemUuids = $mOption->findColumn('item_uuid');
             $this->builder()
-                ->whereIn(
-                    'item_uuid',
-                    function(BaseBuilder $builder) use($matches, $mOption)
-                    {
-                        $builder
-                            ->select('item_uuid')
-                            ->from($mOption->builder()->getTable())
-                        ;
-
-                        list($type, $subType, $value, $value2) = explode(':', $matches['value']);
-                        if ($type)
-                        {
-                            $builder->where('option_type', $type);
-                        }
-
-                        if ($subType)
-                        {
-                            $builder->where('option_sub_type', $subType);
-                        }
-
-                        if ($value)
-                        {
-                            $builder->where('option_value' . $matches['eq'], $value);
-                        }
-
-                        if ($value2)
-                        {
-                            $builder->where('option_value2' . $matches['eq'], $value2);
-                        }
-
-                        return $builder;
-                    }
-                )
-                ->where('date_auction_buy !=', '0000-00-00 00:00:00')
+                ->whereIn('item_uuid', $itemUuids)
             ;
 
             $this->builder()->groupEnd();
