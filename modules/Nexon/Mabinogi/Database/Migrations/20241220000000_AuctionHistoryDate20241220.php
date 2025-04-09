@@ -40,6 +40,7 @@ class AuctionHistoryDate20241220 extends Migration
                 ],
             ])
             ->addPrimaryKey(['date', 'item_uuid'])
+            ->addKey(['item_uuid', 'date']) // 상세보기에서 사용하는 인덱스
             ->createTable('nexon_mabinogi_auction_history_date')
         ;
     }

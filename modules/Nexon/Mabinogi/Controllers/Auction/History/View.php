@@ -43,7 +43,7 @@ class View extends BaseController
             ->selectMax('max', 'max')
             ->selectSum('sum', 'sum')
             ->selectSum('count', 'count')
-            ->where('date >=', date('Y-m-d H:i:s', strtotime('-30 day')))
+            ->where('date >=', date('Y-m-d', strtotime('-30 day')))
             ->whereIn('item_uuid', $uuids)
             ->groupBy('date')
             ->orderBy('date', 'DESC')
