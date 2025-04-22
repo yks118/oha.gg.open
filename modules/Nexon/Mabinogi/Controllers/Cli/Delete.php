@@ -22,44 +22,43 @@ class Delete extends BaseController
                 ->findColumn('uuid')
             ;
 
-            if (count($uuids) <= 0)
-            {
-                break;
-            }
-
             try
             {
                 $db->transException(true)->transStart();
 
                 $mAuctionHistory = model(\Modules\Nexon\Mabinogi\Models\AuctionHistory::class);
                 $mAuctionHistory
-                    ->whereIn('item_uuid', $uuids)
+                    ->where('date_auction_buy <', $dateCheck)
+                    // ->whereIn('item_uuid', $uuids)
                     ->delete()
                 ;
 
                 $mAuctionHistoryDate = model(\Modules\Nexon\Mabinogi\Models\AuctionHistoryDate::class);
                 $mAuctionHistoryDate
                     ->where('date <', $dateCheck)
-                    ->whereIn('item_uuid', $uuids)
+                    // ->whereIn('item_uuid', $uuids)
                     ->delete()
                 ;
 
-                $mItemColorPart = model(\Modules\Nexon\Mabinogi\Models\ItemColorPart::class);
-                $mItemColorPart
-                    ->whereIn('item_uuid', $uuids)
-                    ->delete()
-                ;
+                if (count($uuids) > 0)
+                {
+                    $mItemColorPart = model(\Modules\Nexon\Mabinogi\Models\ItemColorPart::class);
+                    $mItemColorPart
+                        ->whereIn('item_uuid', $uuids)
+                        ->delete()
+                    ;
 
-                $mItemOption = model(\Modules\Nexon\Mabinogi\Models\ItemOption::class);
-                $mItemOption
-                    ->whereIn('item_uuid', $uuids)
-                    ->delete()
-                ;
+                    $mItemOption = model(\Modules\Nexon\Mabinogi\Models\ItemOption::class);
+                    $mItemOption
+                        ->whereIn('item_uuid', $uuids)
+                        ->delete()
+                    ;
 
-                $mItem
-                    ->whereIn('uuid', $uuids)
-                    ->delete()
-                ;
+                    $mItem
+                        ->whereIn('uuid', $uuids)
+                        ->delete()
+                    ;
+                }
 
                 $db->transComplete();
             }
