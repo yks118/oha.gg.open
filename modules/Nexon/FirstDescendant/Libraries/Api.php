@@ -59,6 +59,8 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
      *     title_suffix_id: string,
      *     os_language: string,
      *     game_language: string,
+     *     medal_id: string,
+     *     medal_level: int,
      * }
      *
      * @throws Exception
@@ -95,6 +97,7 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
      *     descendant_level: int,
      *     module_max_capacity: int,
      *     module_capacity: int,
+     *     energy_activator_use_count: int,
      *     module: array{
      *         array{
      *             module_slot_id: string,
@@ -102,6 +105,18 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
      *             module_enchant_level: int,
      *         },
      *     },
+     *     customizing: array{array{
+     *         customizing_item_slot_id: string,
+     *         customizing_item_type: string,
+     *         customizing_item_id: string,
+     *         customizing_item_evolution_stage: int,
+     *         customizing_item_current_evolution_stage: int,
+     *         paint: array{array{
+     *             customizing_item_slot_id: string,
+     *             customizing_item_type: string,
+     *             customizing_item_id: string,
+     *         }},
+     *     }},
      * }
      *
      * @throws Exception
@@ -139,6 +154,7 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
      *         array{
      *             module_max_capacity: int,
      *             module_capacity: int,
+     *             energy_activator_use_count: int,
      *             weapon_slot_id: string,
      *             weapon_id: string,
      *             weapon_level: int,
@@ -156,6 +172,12 @@ class Api extends \Modules\Nexon\Core\Libraries\Api
      *                     module_enchant_level: int,
      *                 },
      *             },
+     *             core_unlock_flag: string,
+     *             core: array{array{
+     *                 core_slot_id: string,
+     *                 core_option_name: string,
+     *                 core_option_value: string,
+     *             }},
      *         },
      *     },
      * }

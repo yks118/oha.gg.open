@@ -1834,9 +1834,14 @@ if (! function_usable('nexon_first_descendant_meta_arche_tuning_node'))
 
 if (! function_usable('nexon_first_descendant_meta_arche_tuning_node_id'))
 {
-    function nexon_first_descendant_meta_arche_tuning_node_id(string $id): array
+    function nexon_first_descendant_meta_arche_tuning_node_id(string $id, ?string $locale = null): array
     {
-        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_node_id';
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_arche_tuning_node_' . $locale . '_id';
         $data = cache()->get($cacheKey);
         if (is_null($data))
         {
@@ -1845,6 +1850,146 @@ if (! function_usable('nexon_first_descendant_meta_arche_tuning_node_id'))
             foreach ($list as $row)
             {
                 $data[$row['node_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$id] ?? [];
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_customizing_item'))
+{
+    /**
+     * nexon_first_descendant_meta_customizing_item
+     *
+     * 커스터마이징 아이템의 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     * @since 25.05.22
+     *
+     * @param ?string $locale
+     *
+     * @return array{array{
+     *     customizing_item_id: string,
+     *     customizing_item_name: string,
+     *     customizing_item_type: string,
+     *     customizing_item_tier_id: string,
+     *     customizing_item_description: string,
+     *     customizing_item_image_url: string,
+     *     customizing_item_evolution_stage: array{array{
+     *         stage: int,
+     *         customizing_item_image_url: string,
+     *     }},
+     *     available_descendant: string[],
+     * }}
+     */
+    function nexon_first_descendant_meta_customizing_item(?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_customizing_item_' . $locale;
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url($locale . '/customizing-item.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_customizing_item_id'))
+{
+    function nexon_first_descendant_meta_customizing_item_id(string $id, ?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_customizing_item_' . $locale . '_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_customizing_item();
+            foreach ($list as $row)
+            {
+                $data[$row['customizing_item_id']] = $row;
+            }
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return $data[$id] ?? [];
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_medal'))
+{
+    /**
+     * nexon_first_descendant_meta_medal
+     *
+     * 훈장의 메타데이터를 조회합니다.
+     *
+     * @link https://openapi.nexon.com/ko/game/tfd/?id=21
+     * @since 25.05.22
+     *
+     * @param ?string $locale
+     *
+     * @return array{array{
+     *     medal_id: string,
+     *     medal_detail: array{array{
+     *         medal_level: int,
+     *         medal_name: string,
+     *         medal_tier_id: string,
+     *         medal_image_url: string,
+     *     }},
+     * }}
+     */
+    function nexon_first_descendant_meta_medal(?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_medal_' . $locale;
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $url = nexon_first_descendant_meta_url($locale . '/medal.json');
+            $data = curl_request()->get($url)->getBody();
+            cache()->save($cacheKey, $data, DAY);
+        }
+
+        return json_decode($data, true);
+    }
+}
+
+if (! function_usable('nexon_first_descendant_meta_medal_id'))
+{
+    function nexon_first_descendant_meta_medal_id(string $id, ?string $locale = null): array
+    {
+        if (is_null($locale))
+        {
+            $locale = \Config\Services::request()->getLocale();
+        }
+
+        $cacheKey = 'nexon_first_descendant_meta_medal_' . $locale . '_id';
+        $data = cache()->get($cacheKey);
+        if (is_null($data))
+        {
+            $data = [];
+            $list = nexon_first_descendant_meta_medal();
+            foreach ($list as $row)
+            {
+                $data[$row['medal_id']] = $row;
             }
             cache()->save($cacheKey, $data, DAY);
         }

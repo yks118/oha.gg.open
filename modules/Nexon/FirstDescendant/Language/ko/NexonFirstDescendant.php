@@ -15,10 +15,11 @@ return [
     'game_language'         => '게임 설정 언어',
 
     // user/descendant
-    'descendant_slot'       => '계승자 슬롯',
-    'descendant_level'      => '계승자 레벨',
-    'module_max_capacity'   => '장착 가능한 최대 모듈 수용량',
-    'module_capacity'       => '실제 적용된 수용량',
+    'descendant_slot'               => '계승자 슬롯',
+    'descendant_level'              => '계승자 레벨',
+    'module_max_capacity'           => '장착 가능한 최대 모듈 수용량',
+    'module_capacity'               => '실제 적용된 수용량',
+    'energy_activator_use_count'    => '에너지 활성체 사용 횟수',
 
     // user/weapon
     'weapon_slot'                   => '무기 슬롯',
@@ -132,4 +133,10 @@ return [
     'adapt_level_exp'       => '적응도 레벨별 필요 경험치',
     'node_type'             => '노드 구분',
     'required_tuning_point' => '필요 포인트',
+
+    // medal.json
+    'medal' => '훈장',
+
+    // customizing-item.json
+    'customizing_item'  => '커스터마이징 아이템',
 ];

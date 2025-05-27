@@ -32,6 +32,8 @@ $routes->group(
                         $routes->get('mastery-rank-level-exp',  'MasteryRankLevelExp::index',   ['as' => 'nexon_first_descendant_meta_mastery_rank_level_exp']);
                         $routes->get('fellow-level-exp',        'FellowLevelExp::index',        ['as' => 'nexon_first_descendant_meta_fellow_level_exp']);
                         $routes->get('adapt-level-exp',         'AdaptLevelExp::index',         ['as' => 'nexon_first_descendant_meta_adapt_level_exp']);
+                        $routes->get('medal',                   'Medal::index',                 ['as' => 'nexon_first_descendant_meta_medal']);
+                        $routes->get('customizing-item',        'CustomizingItem::index',       ['as' => 'nexon_first_descendant_meta_customizing_item']);
 
                         $routes->group(
                             'descendant',

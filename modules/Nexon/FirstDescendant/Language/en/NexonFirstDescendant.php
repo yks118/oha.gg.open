@@ -15,10 +15,11 @@ return [
     'game_language'         => 'Game Language',
 
     // user/descendant
-    'descendant_slot'       => 'Descendant Slot',
-    'descendant_level'      => 'Descendant Level',
-    'module_max_capacity'   => 'Module Max Capacity',
-    'module_capacity'       => 'Module Capacity',
+    'descendant_slot'               => 'Descendant Slot',
+    'descendant_level'              => 'Descendant Level',
+    'module_max_capacity'           => 'Module Max Capacity',
+    'module_capacity'               => 'Module Capacity',
+    'energy_activator_use_count'    => 'Energy Activator Use Count',
 
     // user/weapon
     'weapon_slot'                   => 'Weapon Slot',
@@ -132,4 +133,10 @@ return [
     'adapt_level_exp'       => 'Adapt Level Exp',
     'node_type'             => 'Node Type',
     'required_tuning_point' => 'Required Tuning Point',
+
+    // medal.json
+    'medal' => 'Medal',
+
+    // customizing-item.json
+    'customizing_item'  => 'Customizing Item',
 ];

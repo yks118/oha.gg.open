@@ -26,7 +26,9 @@
             </div>
 
             <div class="btn-list justify-content-end">
-                <button type="submit" class="btn btn-outline-success">검색</button>
+                <button type="submit" class="btn btn-outline-success">
+                    <?php echo lang('Core.button.search'); ?>
+                </button>
             </div>
 
             <?php echo form_close(); ?>

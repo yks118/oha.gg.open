@@ -93,6 +93,27 @@
                 </div>
             </div>
         </div>
+
+        <?php
+        $medal = nexon_first_descendant_meta_medal_id($basic['medal_id'])['medal_detail'][$basic['medal_level'] - 1];
+        ?>
+        <div class="card-footer">
+            <div>
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <img
+                            class="avatar"
+                            alt="<?php echo $medal['medal_name']; ?>"
+                            src="<?php echo $medal['medal_image_url']; ?>"
+                        >
+                    </div>
+                    <div class="col">
+                        <h3 class="card-title"><?php echo $medal['medal_name']; ?></h3>
+                        <p class="card-subtitle mb-0"><?php echo $medal['medal_tier_id']; ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
             <?php
         }
@@ -155,6 +176,11 @@
                         </small>
                     </div>
                 </div>
+
+                <div class="datagrid-item">
+                    <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.energy_activator_use_count'); ?></div>
+                    <div class="datagrid-content"><?php echo number_format($descendant['energy_activator_use_count']); ?></div>
+                </div>
             </div>
         </div>
 
@@ -181,7 +207,83 @@
             ?>
         </div>
     </div>
+
             <?php
+            if (count($descendant['customizing']) > 0)
+            {
+                ?>
+    <div class="row row-cards">
+                <?php
+                foreach ($descendant['customizing'] as $rowCustomizing)
+                {
+                    $customizingItem = nexon_first_descendant_meta_customizing_item_id($rowCustomizing['customizing_item_id']);
+                    ?>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <img
+                                    class="avatar"
+                                    alt="<?php echo $customizingItem['customizing_item_id']; ?>"
+                                    src="<?php echo $customizingItem['customizing_item_image_url']; ?>"
+                                >
+                            </div>
+                            <div class="col">
+                                <h3 class="card-title"><?php echo $customizingItem['customizing_item_name']; ?></h3>
+                                <p class="card-subtitle">
+                                    <?php echo $customizingItem['customizing_item_tier_id']; ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <?php
+                    if (count($rowCustomizing['paint']) > 0)
+                    {
+                        ?>
+                <div class="list-group list-group-flush list-group-hoverable">
+                        <?php
+                        foreach ($rowCustomizing['paint'] as $rowPaint)
+                        {
+                            $customizingItemPaint = nexon_first_descendant_meta_customizing_item_id($rowPaint['customizing_item_id']);
+                            ?>
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <img
+                                    class="avatar"
+                                    alt="<?php echo $customizingItemPaint['customizing_item_id']; ?>"
+                                    src="<?php echo $customizingItemPaint['customizing_item_image_url']; ?>"
+                                >
+                            </div>
+                            <div class="col text-truncate">
+                                <div class="text-reset d-block">
+                                    <?php echo $customizingItemPaint['customizing_item_name']; ?>
+                                </div>
+                                <div class="d-block text-secondary text-truncate mt-n1" style="white-space: normal;">
+                                    <?php echo $customizingItemPaint['customizing_item_tier_id']; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            <?php
+                        }
+                        ?>
+                </div>
+                        <?php
+                    }
+                    ?>
+            </div>
+        </div>
+                    <?php
+                }
+                ?>
+    </div>
+                <?php
+            }
         }
         ?>
     <hr>
@@ -261,6 +363,11 @@
                             <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.perk_ability_enchant_level'); ?></div>
                             <div class="datagrid-content"><?php echo $row['perk_ability_enchant_level']; ?></div>
                         </div>
+
+                        <div class="datagrid-item">
+                            <div class="datagrid-title"><?php echo lang('NexonFirstDescendant.energy_activator_use_count'); ?></div>
+                            <div class="datagrid-content"><?php echo $row['energy_activator_use_count']; ?></div>
+                        </div>
                     </div>
                 </div>
 
@@ -305,6 +412,27 @@
                         <?php
                     }
                     ?>
+                </div>
+                    <?php
+                }
+
+                if ($row['core_unlock_flag'])
+                {
+                    ?>
+                <div class="card-body">
+                    <div class="datagrid">
+                        <?php
+                        foreach ($row['core'] as $rowCore)
+                        {
+                            ?>
+                        <div class="datagrid-item">
+                            <div class="datagrid-title"><?php echo $rowCore['core_option_name']; ?></div>
+                            <div class="datagrid-content"><?php echo $rowCore['core_option_value']; ?></div>
+                        </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
                 </div>
                     <?php
                 }
